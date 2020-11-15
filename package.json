@@ -9,7 +9,7 @@
     "prebuild": "npm run clean",
     "build": "node ./bin/build ./dist",
     "clean": "rm -rf dist",
-    "test": "cypress run -C cypress/cypress.json",
+    "test": "cypress run",
     "posttest": "rm -rf .nyc_output"
   },
   "files": [
