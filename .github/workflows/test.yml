@@ -75,7 +75,6 @@ jobs:
           DEBUG: code-coverage
         with:
           browser: ${{ matrix.browser }}
-          build: npm run build:publish
 
       # Upload coverage report to codecov and codacy
       - name: Upload coverage to Codecov
