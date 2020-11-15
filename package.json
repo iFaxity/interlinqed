@@ -1,0 +1,48 @@
+{
+  "name": "@ifaxity/linq",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "module": "src/index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "prebuild": "npm run clean",
+    "build": "node ./bin/build ./dist",
+    "clean": "rm -rf dist",
+    "test": "cypress run -C cypress/cypress.json",
+    "posttest": "rm -rf .nyc_output"
+  },
+  "files": [
+    "./types",
+    "./dist"
+  ],
+  "nyc": {
+    "reporter": "lcov",
+    "report-dir": "./cypress/coverage",
+    "temp-dir": "./.nyc_output",
+    "exclude": [
+      "cypress"
+    ]
+  },
+  "author": "iFaxity (christian@faxity.se)",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-typescript": "^7.12.1",
+    "@cypress/code-coverage": "^3.8.3",
+    "@cypress/webpack-preprocessor": "^5.4.10",
+    "@types/chai": "^4.2.14",
+    "@types/mocha": "^8.0.3",
+    "@types/node": "^14.14.6",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-istanbul": "^6.0.0",
+    "chai": "^4.2.0",
+    "cypress": "^5.5.0",
+    "esbuild": "^0.8.2",
+    "tslib": "^1.14.1",
+    "typescript": "^4.0.5",
+    "webpack": "^4.44.2"
+  }
+}

@@ -1,0 +1,97 @@
+name: Cypress
+on:
+  - push
+
+env:
+  CY_COVERAGE_OUTPUT: ./cypress/coverage/lcov.info
+  CACHE_PATHS: |
+    **/node_modules
+    ~/.cache/Cypress
+
+jobs:
+  # Install packages and setup project
+  setup:
+    name: Setup (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ macos-latest, windows-latest, ubuntu-latest ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.CACHE_PATHS }}
+          key: ${{ runner.os }}#${{ hashFiles('package-lock.json') }}
+
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+  # Testing through cypress
+  cypress:
+    name: Cypress (${{ matrix.os }}, ${{ matrix.browser }})
+    needs: setup
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ macos-latest, ubuntu-latest ]
+        browser: [ chrome, firefox ]
+        experimental: [ false ]
+        include:
+          # Cypress + Windows = fails, sometimes
+          - os: windows-latest
+            browser: edge
+            experimental: true
+          - os: windows-latest
+            browser: firefox
+            experimental: true
+          - os: windows-latest
+            browser: chrome
+            experimental: true
+
+    steps:
+      # Restore packages from cache
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.CACHE_PATHS }}
+          key: ${{ runner.os }}#${{ hashFiles('package-lock.json') }}
+
+      - name: Run cypress (Cypress)
+        uses: cypress-io/github-action@v2
+        env:
+          DEBUG: code-coverage
+        with:
+          browser: ${{ matrix.browser }}
+          build: npm run build:publish
+
+      # Upload coverage report to codecov and codacy
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          flags: unittests
+          file: ${{ env.CY_COVERAGE_OUTPUT }}
+          name: ${{ runner.os }} - ${{ matrix.browser }}
+          # Should be true, but Windows is being difficult
+          fail_ci_if_error: false
+
+      # Doesn't yet support macOS or Windows
+      - name: Upload coverage to Codacy
+        uses: codacy/codacy-coverage-reporter-action@v0.2.1
+        if: runner.os == 'Linux'
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: ${{ env.CY_COVERAGE_OUTPUT }}
+
