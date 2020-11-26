@@ -75,7 +75,7 @@ result = [
 Docs
 --------------------------
 
-The docs are available under
+The typedoc are available [here](https://ifaxity.github.io/interlinqed).
 
 Testing
 --------------------------

@@ -1,0 +1,15 @@
+{
+  "name": "InterLINQed",
+  "mode": "modules",
+  "out": "docs",
+  "readme": "./README.md",
+  "exclude": [
+    "**/node_modules/**"
+  ],
+  "excludeNotExported": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "ignoreCompilerErrors": false,
+  "preserveConstEnums": true,
+  "stripInternal": true
+}
