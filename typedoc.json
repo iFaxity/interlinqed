@@ -1,6 +1,6 @@
 {
   "name": "InterLINQed",
-  "mode": "modules",
+  "mode": "file",
   "out": "docs",
   "readme": "./README.md",
   "exclude": [
