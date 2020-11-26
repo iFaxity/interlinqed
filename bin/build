@@ -29,7 +29,7 @@ function main() {
   // calculate sizes of the bundles
   // Interpolate numbers as kb of number
   const size = (value) => `${(value / 1024).toFixed(2)}kb`;
-  for (const filename of resolveFiles(outdir).filter(x => extname(x) == '.mjs')) {
+  for (const filename of resolveFiles(outdir).filter(x => extname(x) == '.js')) {
     try {
       const filePath = resolve(CWD, 'dist', filename);
       const file = readFileSync(filePath);
