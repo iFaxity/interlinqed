@@ -1,48 +1,65 @@
-
-
 export type Flow<T, R> = (a: T) => R;
 export type Key<T = any, TReturn = string | number> = (key: T) => TReturn;
+export type Comparison<T = any> = (x: T, y: T) => number;
+
 export interface Predicate<T = any> {
   (value?: T, index?: number): boolean
 }
-export type Comparison<T = any> = (x: T, y: T) => number;
-export const ORDERED_KEY = Symbol();
-export interface OrderedList<T> extends Array<T> {
-  [ORDERED_KEY]: Comparison<T>[];
+
+/**
+ * Converts input into a number, returns NaN conversion failed
+ * @param input - Input data to convert
+ * @returns The input as a number
+ * @private
+ */
+export function toNumber(input: any): number {
+  return +input;
 }
 
-// Converts any into a number
-export function toNumber(x: any): number {
-  return +x;
+/**
+ * Checks if the argument passed is an object
+ * @param input - Input data to verify if it is an object
+ * @returns A boolean with the result
+ * @private
+ */
+export function isObject<T extends object>(input: any): input is T {
+  return input != null && typeof input == 'object';
 }
 
-// Checks if the argument passed is an object
-export function isObject<T extends object>(obj: any): obj is T {
-  return obj != null && typeof obj == 'object';
+/**
+ * Determines if two objects are considered equal, only checks own properties
+ * @param a - Object a to compare
+ * @param b - Object to compare a against
+ * @returns A boolean with the result
+ * @private
+ */
+export function deepEqual<
+  T extends Record<string, any>,
+  U extends Record<string, any>
+>(a: T, b: U): boolean {
+  if (!isObject(a) || !isObject(b)) {
+    return a === b;
+  }
+
+  // Ensure key amount is the same
+  const keys = Object.keys(a);
+  return (Object.keys(b).length == keys.length) && keys.every(key => deepEqual(a[key], b[key]));
 }
 
-// Determines if two objects are equal
-type LinqObject = Record<string, any>;
-export function deepEqual<T extends LinqObject, U extends LinqObject>(a: T, b: U): boolean {
-  return Object.keys(a).every(key => {
-    return isObject(a[key]) ? deepEqual(a[key], b[key]) : b[key] === a[key];
-  });
-}
-
-export function isOrderedList<T>(list: any|T[]): list is OrderedList<T> {
-  return list != null && typeof list == 'object' && ORDERED_KEY in list;
-}
-
-// Shim to ensure stable sorting in pre ES2019 browser engines
-// Also deferrs sorting if the list has comparers attached to it
-export function stableSort<T>(list: OrderedList<T>): T[] {
-  const comparers: Comparison<T>[] = list[ORDERED_KEY];
-
-  // Sort with comparer functions chained into each other if hte previous one returns 0
+/**
+ * Shim to ensure stable sorting in pre ES2019 browser engines, as sorting is unstable
+ * @param list - Input array to sort
+ * @param comparisons - Array of comparison functions to use in the sorting, at least one is required
+ * @returns A copy of the array, but sorted
+ * @private
+ */
+export function stableSort<T>(list: T[], ...comparisons: Comparison<T>[]): T[] {
+  // Sort with comparer functions chained into each other if the previous one returns 0
   return [...list].sort((x, y) => {
     let res: number;
-    for (let idx = 0; idx < comparers.length; idx++) {
-      res = comparers[idx](x, y);
+
+    for (let idx = 0; idx < comparisons.length; idx++) {
+      res = comparisons[idx](x, y);
       if (res !== 0) {
         return res;
       }

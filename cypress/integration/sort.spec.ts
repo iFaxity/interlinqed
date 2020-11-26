@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { Linq, OrderBy, OrderByDescending, ThenBy, ThenByDescending } from '../../src';
+import { OrderBy, OrderByDescending, ThenBy, ThenByDescending } from '../../src';
 
 describe('Sorting functions', () => {
   const list = [
@@ -11,35 +11,29 @@ describe('Sorting functions', () => {
   ];
 
   it('#OrderBy()', () => {
-    const res = Linq(list,
-      chain => OrderBy(chain, x => x.fat)
-    );
-    assert.deepEqual(res.map(x => x.name), ['Jelly bean', 'Frozen yogurt', 'Ice cream sandwich', 'Eclair', 'Gingerbread']);
+    const res = OrderBy(list, x => x.fat);
+    assert.deepEqual(res, [list[4], list[0], list[1], list[2], list[3]]);
   });
 
   it('#OrderByDescending()', () => {
-    const res = Linq(list,
-      chain => OrderByDescending(chain, x => x.prot)
-    );
+    const res = OrderByDescending(list, x => x.prot);
 
-    assert.deepEqual(res.map(x => x.name), ['Eclair', 'Ice cream sandwich', 'Frozen yogurt', 'Gingerbread', 'Jelly bean']);
+    assert.deepEqual(res, [list[2], list[1], list[0], list[3], list[4]]);
   });
 
   it('#ThenBy()', () => {
-    const res = Linq(list,
-      chain => OrderBy(chain, x => x.carbs),
-      chain => ThenBy(chain, x => x.fat)
+    const res = OrderBy(list, x => x.carbs,
+      ThenBy(x => x.fat)
     );
 
-    assert.deepEqual(res.map(x => x.name), ['Frozen yogurt', 'Eclair', 'Ice cream sandwich', 'Gingerbread', 'Jelly bean']);
+    assert.deepEqual(res, [list[0], list[2], list[1], list[3], list[4]]);
   });
 
   it('#ThenByDescending()', () => {
-    const res = Linq(list,
-      chain => OrderBy(chain, x => Math.floor(x.prot)),
-      chain => ThenByDescending(chain, x => x.carbs)
+    const res = OrderBy(list, x => Math.floor(x.prot),
+      ThenByDescending(x => x.carbs)
     );
 
-    assert.deepEqual(res.map(x => x.name), ['Jelly bean', 'Gingerbread', 'Ice cream sandwich', 'Frozen yogurt', 'Eclair']);
+    assert.deepEqual(res, [list[4], list[3], list[1], list[0], list[2]]);
   });
 });

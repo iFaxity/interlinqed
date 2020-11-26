@@ -1,11 +1,9 @@
 import { assert } from 'chai';
-import { toNumber, isObject, isOrderedList, deepEqual, stableSort, ORDERED_KEY } from '../../src/shared';
+import { toNumber, isObject, deepEqual, stableSort } from '../../src/shared';
 
 describe('Shared functions', () => {
   describe('#toNumber()', () => {
-    it('with number', () => {
-      assert.equal(toNumber(100), 100);
-    });
+    it('with number', () => assert.equal(toNumber(100), 100));
     it('with string', () => {
       assert.equal(toNumber('100'), 100);
       assert.equal(toNumber('-20.5'), -20.5);
@@ -35,21 +33,30 @@ describe('Shared functions', () => {
     it('with number', () => assert.isFalse(isObject(100)));
   });
 
-  describe('#isOrderedList()', () => {
-    it('', () => {});
-    it('', () => {});
-    it('', () => {});
-  });
-
   describe('#deepEqual()', () => {
-    it('', () => {});
-    it('', () => {});
-    it('', () => {});
+    it('test1', () => {
+      assert.isTrue(deepEqual({ foo: 'fooz', bar: true, qux: 100 }, { bar: true, qux: 100, foo: 'fooz' }));
+    });
+    it('test2', () => {
+      assert.isTrue(deepEqual([100, false, null, 'hey'], [100, false, null, 'hey']));
+    });
+    it('test3', () => {
+      assert.isTrue(deepEqual({ foo: { bar: { hello: 'hey' } } }, { foo: { bar: { hello: 'hey' } } }));
+    });
+    it('test4', () => {
+      assert.isFalse(deepEqual({ foo: { bar: { hello: 'hey' } } }, { foo: { bar: { hello: 'hey' }, count: 1 } }));
+    });
+    it('test5', () => {
+      assert.isFalse(deepEqual({}, null));
+    });
+    it('test6', () => {
+      assert.isFalse(deepEqual(null, {}));
+    });
   });
 
   describe('#stableSort()', () => {
-    it('', () => {});
-    it('', () => {});
-    it('', () => {});
+    it('test1', () => {});
+    it('test2', () => {});
+    it('test3', () => {});
   });
 });

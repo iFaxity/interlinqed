@@ -1,9 +1,11 @@
-import { Key, Comparison, ORDERED_KEY, OrderedList, isOrderedList } from './shared';
+import { Key, Comparison, stableSort } from './shared';
 
 /**
- * Generates a Comparison function from a Key, with ascending order
+ * Performs a subsequent ordering of the elements in a sequence in ascending order, according to a key.
+ * @param key - A function to extract a key from each element.
+ * @returns A Comparison function to use with OrderBy or OrderByDescending.
  */
-function keyComparisonAsc<T, TReturn>(key: Key<T, TReturn>): Comparison<T> {
+export function ThenBy<T, TReturn = any>(key: Key<T, TReturn>): Comparison<T> {
   return (a, b) => {
     const x = key(a);
     const y = key(b);
@@ -12,9 +14,11 @@ function keyComparisonAsc<T, TReturn>(key: Key<T, TReturn>): Comparison<T> {
 }
 
 /**
- * Generates a Comparison function from a Key, with descending order
+ * Performs a subsequent ordering of the elements in a sequence in descending order, according to a key.
+ * @param key - A function to extract a key from each element.
+ * @returns A Comparison function to use with OrderBy or OrderByDescending.
  */
-function keyComparisonDesc<T, TReturn>(key: Key<T, TReturn>): Comparison<T> {
+export function ThenByDescending<T, TReturn = any>(key: Key<T, TReturn>): Comparison<T> {
   return (a, b) => {
     const x = key(a);
     const y = key(b);
@@ -23,43 +27,31 @@ function keyComparisonDesc<T, TReturn>(key: Key<T, TReturn>): Comparison<T> {
 }
 
 /**
- * Performs a subsequent ordering of the elements in a sequence in ascending order according to a key.
+ * Sorts the elements of a sequence in ascending order according to key/keys.
+ * @param list - A sequence of values to order.
+ * @param key - A function to extract a key from an element.
+ * @param comparisons - A set of functions to use if the last comparison was equal.
+ * @returns An array whose elements are sorted according the key/keys.
  */
-export function ThenBy<T, TReturn = any>(list: T[], key: Key<T, TReturn>): T[] {
-  if (isOrderedList(list)) {
-    list[ORDERED_KEY].push(keyComparisonAsc(key));
-  }
-  return list;
+export function OrderBy<T, TReturn = any>(
+  list: T[],
+  key: Key<T, TReturn>,
+  ...comparisons: Comparison<T>[]
+): T[] {
+  return stableSort(list, ThenBy(key), ...comparisons);
 }
 
 /**
- * Performs a subsequent ordering of the elements in a sequence in descending order, according to a key.
+ * Sorts the elements of a sequence in descending order according to key/keys.
+ * @param list - A sequence of values to order.
+ * @param key - A function to extract a key from an element.
+ * @param comparisons - A set of functions to use if the last comparison was equal.
+ * @returns An array whose elements are sorted according the key/keys.
  */
-export function ThenByDescending<T, TReturn = any>(list: T[], key: Key<T, TReturn>): T[] {
-  if (isOrderedList(list)) {
-    list[ORDERED_KEY].push(keyComparisonDesc(key));
-  }
-  return list;
-}
-
-/**
- * Sorts the elements of a sequence in ascending order according to a key.
- * The sorting is non-deferred but and is executed at once, however only once as every comparer is chained
- */
-export function OrderBy<T, TReturn = any>(list: T[], key: Key<T, TReturn>): T[] {
-  const res = list as OrderedList<T>;
-  res[ORDERED_KEY] = [ keyComparisonAsc(key) ];
-
-  return res;
-}
-
-/**
- * Sorts the elements of a sequence in descending order according to a key.
- * The sorting is non-deferred but and is executed at once, however only once as every comparer is chained
- */
-export function OrderByDescending<T, TReturn = any>(list: T[], key: Key<T, TReturn>): T[] {
-  const res = list as OrderedList<T>;
-  res[ORDERED_KEY] = [ keyComparisonDesc(key) ];
-
-  return res;
+export function OrderByDescending<T, TReturn = any>(
+  list: T[],
+  key: Key<T, TReturn>,
+  ...comparisons: Comparison<T>[]
+): T[] {
+  return stableSort(list, ThenByDescending(key), ...comparisons);
 }

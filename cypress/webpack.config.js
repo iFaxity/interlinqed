@@ -1,4 +1,3 @@
-const { resolve } = require('path');
 const BABEL_OPTIONS = {
   presets: [
     ['@babel/preset-env', {
@@ -16,9 +15,6 @@ module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
   resolve: {
-    alias: {
-      '~': resolve(__dirname, '../src'),
-    },
     extensions: ['.ts', '.js', '.json'],
   },
   module: {

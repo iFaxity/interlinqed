@@ -1,11 +1,40 @@
 import { Predicate } from './shared';
 
-interface Expression<T = any> extends Predicate<T> {
+/**
+ * @interface
+ * @private
+ */
+export interface Expression<T = any> extends Predicate<T> {
+  /**
+   * Adds an And predicate to the end of the {@link PredicateBuilder}
+   * @param predicate - Predicate to add onto the builder chain
+   */
   And(predicate: Predicate<T>): Expression<T>;
+
+  /**
+   * Adds an Or predicate to the end of the {@link PredicateBuilder}
+   * @param predicate - Predicate to add onto the builder chain
+   */
   Or(predicate: Predicate<T>): Expression<T>;
 }
 
-const PredicateExpression: Expression = Object.defineProperties(Object.create(Function), {
+/**
+ * Helper function to ensure the predicate is an expression
+ * @param predicate - Predicate to mutate the expression for
+ * @returns The created Expression
+ * @private
+ */
+function createExpression<T>(predicate: Predicate<T>): Expression<T> {
+  return Object.prototype.isPrototypeOf.call(PredicateExpression, predicate)
+    ? predicate
+    : Object.setPrototypeOf(predicate, PredicateExpression);
+}
+
+/**
+ * Base prototype for Expression
+ * @private
+ */
+export const PredicateExpression: Expression = Object.defineProperties(Object.create(Function), {
   And: {
     value(predicate: Predicate) {
       return createExpression((x, y) => !!(this(x, y) && predicate(x, y)));
@@ -18,14 +47,10 @@ const PredicateExpression: Expression = Object.defineProperties(Object.create(Fu
   },
 });
 
-function createExpression<T>(predicate: Predicate<T>): Expression<T> {
-  return Object.prototype.isPrototypeOf.call(PredicateExpression, predicate)
-    ? predicate
-    : Object.setPrototypeOf(predicate, PredicateExpression);
-}
-
 /**
-* Creates a new Expression on which to build predicates on
+* Starts an expression
+* @param expression - Default expression, could be a boolean indicating the default return value
+* @returns The started expression
 */
 export function New<T = any>(expression?: boolean): Expression<T>;
 export function New<T = any>(expression?: Predicate<T>): Expression<T>;
