@@ -1,5 +1,5 @@
 {
-  "name": "@ifaxity/linq",
+  "name": "interlinqed",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
@@ -8,7 +8,9 @@
   "scripts": {
     "prebuild": "npm run clean",
     "build": "node ./bin/build ./dist",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist types",
+    "docs": "typedoc src",
+    "pretest": "rm -rf .nyc_output",
     "test": "cypress run",
     "posttest": "rm -rf .nyc_output"
   },
@@ -42,6 +44,7 @@
     "cypress": "^5.5.0",
     "esbuild": "^0.8.2",
     "tslib": "^1.14.1",
+    "typedoc": "^0.19.2",
     "typescript": "^4.0.5",
     "webpack": "^4.44.2"
   }
