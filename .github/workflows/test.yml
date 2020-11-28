@@ -1,6 +1,11 @@
 name: Cypress
 on:
-  - push
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 env:
   CY_COVERAGE_OUTPUT: ./cypress/coverage/lcov.info
@@ -9,7 +14,7 @@ env:
     ~/.cache/Cypress
 
 jobs:
-  # Install packages and setup project
+  # Setups testing environment on each version
   setup:
     name: Setup (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
@@ -34,8 +39,8 @@ jobs:
         run: npm ci
 
   # Testing through cypress
-  cypress:
-    name: Cypress (${{ matrix.os }}, ${{ matrix.browser }})
+  test:
+    name: Test (${{ matrix.os }}, ${{ matrix.browser }})
     needs: setup
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.experimental }}
@@ -85,4 +90,28 @@ jobs:
           name: ${{ runner.os }} - ${{ matrix.browser }}
           # Should be true, but Windows is being difficult
           fail_ci_if_error: false
+
+  # Release verison if tests succeeded
+  release:
+    name: Publish
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+    
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+
+      - name: Release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
 
