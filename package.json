@@ -1,6 +1,6 @@
 {
   "name": "interlinqed",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "src/index.js",
   "module": "src/index.js",
@@ -15,8 +15,8 @@
     "posttest": "rm -rf .nyc_output"
   },
   "files": [
-    "./types",
-    "./dist"
+    "types",
+    "dist"
   ],
   "nyc": {
     "reporter": "lcov",
