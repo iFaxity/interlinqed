@@ -3,7 +3,7 @@ InterLINQed
 
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/ifaxity/interlinqed/Test%20and%20Deploy?style=for-the-badge&logo=github)](https://github.com/iFaxity/interlinqed/actions)
 [![Codecov](https://img.shields.io/codecov/c/github/ifaxity/interlinqed?style=for-the-badge&logo=codecov)](https://codecov.io/gh/iFaxity/interlinqed)
-[![Codacy grade](https://img.shields.io/codacy/grade/e723a0514a1843e584c7f44fb29d3c63?style=for-the-badge&logo=codacy)](https://app.codacy.com/manual/iFaxity/interlinqed/dashboard)
+[![Codacy grade](https://img.shields.io/codacy/grade/e723a0514a1843e584c7f44fb29d3c63?style=for-the-badge&logo=codacy)](https://app.codacy.com/gh/iFaxity/interlinqed/dashboard)
 [![npm](https://img.shields.io/npm/v/interlinqed?style=for-the-badge&logo=npm)](https://npmjs.org/package/interlinqed)
 
 A functional implementation of LINQ in TypeScript, inspired by [linq-ts](https://www.npmjs.com/package/linqts).
