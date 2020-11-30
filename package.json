@@ -1,10 +1,33 @@
 {
   "name": "interlinqed",
   "version": "1.0.0",
-  "description": "",
+  "description": "A functional implementation of LINQ in TypeScript",
+  "author": "iFaxity (christian@faxity.se)",
+  "license": "MIT",
+  "homepage": "https://ifaxity.github.io/interlinqed",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ifaxity/interlinqed.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ifaxity/interlinqed/issues"
+  },
+  "keywords": [
+    "linq",
+    "linqts",
+    "typescript",
+    "c#",
+    "array",
+    "filter"
+  ],
+  "sideEffects": false,
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "types/index.d.ts",
+  "files": [
+    "types",
+    "dist"
+  ],
   "scripts": {
     "prebuild": "npm run clean",
     "build": "node ./bin/build",
@@ -14,10 +37,6 @@
     "test": "cypress run",
     "posttest": "rm -rf .nyc_output"
   },
-  "files": [
-    "types",
-    "dist"
-  ],
   "nyc": {
     "reporter": "lcov",
     "report-dir": "./cypress/coverage",
@@ -26,8 +45,6 @@
       "cypress"
     ]
   },
-  "author": "iFaxity (christian@faxity.se)",
-  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
