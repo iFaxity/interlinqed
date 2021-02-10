@@ -4,18 +4,28 @@ import { Predicate } from './shared';
  * @interface
  * @private
  */
-export interface Expression<T = any> extends Predicate<T> {
+export interface Expression<T = unknown> extends Predicate<T> {
+  /* Get the internal predicate of the expression */
+  readonly _predicate: Expression<T>|null;
+  /* Raw predicate of this expression */
+  readonly Predicate: Predicate<T>;
+
+  /* DefaultExpression for the predicate */
+  readonly DefaultExpression: Expression<T>;
+
   /**
    * Adds an And predicate to the end of the {@link PredicateBuilder}
    * @param predicate - Predicate to add onto the builder chain
    */
   And(predicate: Predicate<T>): Expression<T>;
+  And<U>(predicate: Predicate<T>): Expression<U>;
 
   /**
    * Adds an Or predicate to the end of the {@link PredicateBuilder}
    * @param predicate - Predicate to add onto the builder chain
    */
   Or(predicate: Predicate<T>): Expression<T>;
+  Or<U>(predicate: Predicate<T>): Expression<U>;
 }
 
 /**
@@ -24,9 +34,9 @@ export interface Expression<T = any> extends Predicate<T> {
  * @returns The created Expression
  * @private
  */
-function createExpression<T>(predicate: Predicate<T>): Expression<T> {
+function createExpression<T>(predicate: Expression<T>|Predicate<T>): Expression<T> {
   return Object.prototype.isPrototypeOf.call(PredicateExpression, predicate)
-    ? predicate
+    ? (predicate as Expression<T>)._predicate // get the raw predicate of the expression
     : Object.setPrototypeOf(predicate, PredicateExpression);
 }
 
@@ -34,7 +44,7 @@ function createExpression<T>(predicate: Predicate<T>): Expression<T> {
  * Base prototype for Expression
  * @private
  */
-export const PredicateExpression: Expression = Object.defineProperties(Object.create(Function), {
+const PredicateExpression: Expression = Object.defineProperties(Object.create(Function), {
   And: {
     value(predicate: Predicate) {
       return createExpression((x, y) => !!(this(x, y) && predicate(x, y)));
@@ -52,16 +62,25 @@ export const PredicateExpression: Expression = Object.defineProperties(Object.cr
 * @param expression - Default expression, could be a boolean indicating the default return value
 * @returns The started expression
 */
-export function New<T = any>(expression?: boolean): Expression<T>;
-export function New<T = any>(expression?: Predicate<T>): Expression<T>;
-export function New<T = any>(expression?: Predicate<T>|boolean): Expression<T> {
+export function New<T = unknown>(expression?: boolean): Expression<T>;
+export function New<T = unknown>(expression?: Predicate<T>): Expression<T>;
+export function New<T = unknown>(expression?: Predicate<T>|boolean): Expression<T> {
   let current = typeof expression == 'function' ? createExpression(expression) : null;
-  const defaultExpression: Predicate = expression === true
+  const defaultExpression = createExpression<T>(expression === true
     ? () => true
-    : () => false;
+    : () => false);
 
-  const expr = createExpression((item, idx) => !!(current ?? defaultExpression)(item, idx));
+  const expr = createExpression<T>((item, idx) => !!(current ?? defaultExpression)(item, idx));
   return Object.defineProperties(expr, {
+    _predicate: {
+      get: () => current,
+    },
+    Predicate: {
+      get: () => current ?? defaultExpression,
+    },
+    DefaultExpression: {
+      value: defaultExpression,
+    },
     And: {
       value(predicate: Predicate) {
         current = current?.And(predicate) ?? createExpression(predicate);
