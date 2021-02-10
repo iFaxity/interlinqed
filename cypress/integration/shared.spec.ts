@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { toNumber, isObject, deepEqual, stableSort } from '../../src/shared';
+import { toNumber, isObject, deepEqual } from '../../src/shared';
 
 describe('Shared functions', () => {
   describe('#toNumber()', () => {

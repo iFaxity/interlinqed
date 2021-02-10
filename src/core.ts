@@ -382,21 +382,21 @@ export function SelectMany<TSource, TResult extends any[]>(
   source: TSource[],
   collectionSelector: Selector<TSource, TResult>
 ): TResult;
-export function SelectMany<TSource, TCollection extends any[], TResult extends any>(
+export function SelectMany<TSource, TCollection extends any, TResult extends any>(
   source: TSource[],
-  collectionSelector: Selector<TSource, TCollection>,
+  collectionSelector: Selector<TSource, TCollection[]>,
   resultSelector: Selector<TCollection, TResult>
 ): TResult[];
-export function SelectMany<TSource, TCollection extends any[], TResult extends any>(
+export function SelectMany<TSource, TCollection extends any, TResult extends any>(
   source: TSource[],
-  collectionSelector: Selector<TSource, TCollection>,
+  collectionSelector: Selector<TSource, TCollection[]>,
   resultSelector?: Selector<TCollection, TResult>
 ): TResult[] {
   const res = source.reduce((acc, item, idx) => {
     return (acc.push(...collectionSelector(item, idx)), acc);
-  }, [] as TCollection);
+  }, [] as TCollection[]);
 
-  return resultSelector ? res.map(resultSelector) : res;
+  return resultSelector ? res.map(resultSelector) : res as TResult[];
 }
 
 /**

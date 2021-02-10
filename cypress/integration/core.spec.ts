@@ -438,6 +438,10 @@ describe('Core', () => {
       const list = [[ 1, 2, 3 ], [ 4, [ 5, 6 ] ], [ 7, 8, 9 ]];
       assert.deepEqual(Core.SelectMany(list, x => x), [ 1, 2, 3, 4, [ 5, 6 ], 7, 8, 9 ]);
     });
+    it('test3', () => {
+      const list = [[ 1, 2, 3 ], [ 4, [ 5, 6 ] ], [ 7, 8, 9 ]];
+      assert.deepEqual(Core.SelectMany(list, x => x, res => res), [ 1, 2, 3, 4, [ 5, 6 ], 7, 8, 9 ]);
+    })
   });
   describe('#Single()', () => {
     it('test1', () => {
@@ -672,7 +676,8 @@ describe('Core', () => {
       assert.isEmpty(Core.OfType([], String));
     });
     it('test6', () => {
-      // BigInt not supported :(, due to IE support
+      // BigInt not supported :( on IE, but we don't test in IE so this should be fine
+      // @ts-ignore
       assert.isEmpty(Core.OfType([100n, 100, 20, 200n], BigInt));
     });
   });
