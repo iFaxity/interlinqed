@@ -2,10 +2,10 @@ name: Test and Deploy
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 env:
   CY_COVERAGE_OUTPUT: ./cypress/coverage/lcov.info
