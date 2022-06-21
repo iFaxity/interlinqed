@@ -2,18 +2,27 @@ export type Flow<T, R> = (a: T) => R;
 export type Key<T = any, TReturn = string | number> = (key: T) => TReturn;
 export type Comparison<T = any> = (x: T, y: T) => number;
 
+export type Enumerable<T> = Iterable<T>;
+
+export interface Pipe<T, TRes> {
+  (iter: T): TRes;
+}
+
+export type Operation<T = any, TRes = T> = Pipe<Enumerable<T>, Enumerable<TRes>>;
+export type Collector<T = any, TRes = any> = Pipe<Enumerable<T>, TRes>;
+
 export interface Predicate<T = any> {
   (value?: T, index?: number): boolean
 }
 
 /**
- * Converts input into a number, returns NaN conversion failed
+ * Converts input into a number, returns NaN if conversion failed
  * @param input - Input data to convert
  * @returns The input as a number
  * @private
  */
 export function toNumber(input: any): number {
-  return +input;
+  return Number(input);
 }
 
 /**

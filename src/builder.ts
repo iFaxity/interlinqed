@@ -60,16 +60,17 @@ export function New<T = any>(expression?: Predicate<T>|boolean): Expression<T> {
     ? () => true
     : () => false;
 
-  const expr = createExpression((item, idx) => !!(current ?? defaultExpression)(item, idx));
+  const expr = createExpression<T>((item, idx) => !!(current ?? defaultExpression)(item, idx));
+
   return Object.defineProperties(expr, {
     And: {
-      value(predicate: Predicate) {
+      value(predicate: Predicate<T>) {
         current = current?.And(predicate) ?? createExpression(predicate);
         return expr;
       },
     },
     Or: {
-      value(predicate: Predicate) {
+      value(predicate: Predicate<T>) {
         current = current?.Or(predicate) ?? createExpression(predicate);
         return expr;
       },
