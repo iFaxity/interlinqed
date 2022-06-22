@@ -1,4 +1,4 @@
-interface Enumerator<T> {
+export interface Enumerator<T> extends Iterable<T> {
   current?: T;
   moveNext(): boolean;
 }
@@ -12,6 +12,9 @@ export function enumerate<T>(iter: Iterable<T>): Enumerator<T> {
       self.current = res.value;
       return res.done;
     },
+    [Symbol.iterator]() {
+      return iterator;
+    }
   };
 
   return self;

@@ -29,13 +29,12 @@
     "dist"
   ],
   "scripts": {
-    "prebuild": "npm run clean",
-    "build": "node ./bin/build",
-    "clean": "rm -rf dist types",
+    "build": "vite build",
+    "build:types": "tsc --emitDeclarationOnly",
+    "lint": "tsc --noEmit",
     "docs": "typedoc src",
-    "pretest": "rm -rf .nyc_output",
-    "test": "cypress run",
-    "posttest": "rm -rf .nyc_output"
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "nyc": {
     "reporter": "lcov",
@@ -46,25 +45,12 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/preset-env": "^7.12.1",
-    "@babel/preset-typescript": "^7.12.1",
-    "@cypress/code-coverage": "^3.8.3",
-    "@cypress/webpack-preprocessor": "^5.4.10",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
-    "@types/chai": "^4.2.14",
-    "@types/mocha": "^8.0.3",
     "@types/node": "^14.14.6",
-    "babel-loader": "^8.1.0",
-    "babel-plugin-istanbul": "^6.0.0",
-    "chai": "^4.2.0",
-    "cypress": "^5.5.0",
-    "esbuild": "^0.8.2",
-    "tslib": "^1.14.1",
     "typedoc": "^0.19.2",
     "typescript": "^4.0.5",
-    "webpack": "^4.44.2"
+    "vite": "^2.9.12",
+    "vitest": "^0.15.2"
   }
 }
