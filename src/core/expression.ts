@@ -15,6 +15,18 @@ export interface Expression<T = any> extends Predicate<T> {
 }
 
 /**
+ * 
+ * @param value 
+ * @returns
+ * @private
+ */
+function defaultPredicate<T>(value: any): Predicate<T> {
+  return value === true
+    ? () => true
+    : () => false;
+}
+
+/**
  * Base prototype for Expression
  * @private
  */
@@ -37,7 +49,7 @@ const PredicateExpression: Expression = Object.defineProperties(Object.create(Fu
  * @returns The created Expression
  * @private
  */
-export function createExpression<T>(predicate: Predicate<T>): Expression<T> {
+function createExpression<T>(predicate: Predicate<T>): Expression<T> {
   return Object.prototype.isPrototypeOf.call(PredicateExpression, predicate)
     ? predicate
     : Object.setPrototypeOf(predicate, PredicateExpression);
@@ -48,24 +60,23 @@ export function createExpression<T>(predicate: Predicate<T>): Expression<T> {
 * @param expression - Default expression, could be a boolean indicating the default return value
 * @returns The started expression
 */
-export function predicate<T = any>(expression?: boolean): Expression<T>;
-export function predicate<T = any>(expression?: Predicate<T>): Expression<T>;
-export function predicate<T = any>(expression?: Predicate<T>|boolean): Expression<T> {
-  let current = typeof expression == 'function' ? createExpression(expression) : null;
-  const defaultExpression: Predicate = expression === true
-    ? () => true
-    : () => false;
+export function createPredicate<T = any>(expression?: boolean): Expression<T>;
+export function createPredicate<T = any>(expression?: Predicate<T>): Expression<T>;
+export function createPredicate<T = any>(expression?: Predicate<T>|boolean): Expression<T> {
+  let current = typeof expression == 'function'
+    ? createExpression(expression)
+    : null;
 
-  const expr = createExpression<T>((item, idx) => !!(current ?? defaultExpression)(item, idx));
+  const expr = createExpression<T>((item, idx) => !!(current ?? defaultPredicate(expression))(item, idx));
 
   return Object.defineProperties(expr, {
-    And: {
+    and: {
       value(predicate: Predicate<T>) {
         current = current?.and(predicate) ?? createExpression(predicate);
         return expr;
       },
     },
-    Or: {
+    or: {
       value(predicate: Predicate<T>) {
         current = current?.or(predicate) ?? createExpression(predicate);
         return expr;

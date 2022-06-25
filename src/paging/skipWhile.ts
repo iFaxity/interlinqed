@@ -10,13 +10,13 @@ export function skipWhile<T>(predicate: Predicate<T>): Operation<T> {
     const e = enumerate(source);
     let idx = 0;
 
-    while (e.moveNext() && !predicate(e.current, idx++)) {
+    while (e.moveNext()) {
       if (!predicate(e.current, idx++)) {
+        // Drain enumerator
+        yield e.current;
+        yield* e;
         break;
       }
     }
-
-    // Drain enumerator
-    yield* e;
   };
 }

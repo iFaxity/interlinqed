@@ -6,10 +6,12 @@ const PRIMITIVE_TYPES = [
   [Number, 'number'],
   [Boolean, 'boolean'],
   [Function, 'function'],
-  //[BigInt, 'bigint'], not available for IE
+  //[BigInt, 'bigint'], BigInt not working yet
   [Symbol, 'symbol'],
   [Object, 'object'],
 ] as [Constructor, string][];
+
+
 
 /**
  * Filters the elements of an array based on a specified type.

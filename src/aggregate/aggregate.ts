@@ -29,7 +29,7 @@ export function aggregate<T, TAcc, TRes>(...args: any[]): Collector<T, TRes> {
       }
     }
 
-    while(e.moveNext()) {
+    while (e.moveNext()) {
       seed = accumulator(seed as TAcc, e.current, idx++);
     }
 

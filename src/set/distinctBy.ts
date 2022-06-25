@@ -17,6 +17,6 @@ export function distinctBy<T, TKey>(keySelector: Key<T, TKey>): Operation<T> {
       seen.add(key);
     }
 
-    return res;
+    return !res;
   });
 }

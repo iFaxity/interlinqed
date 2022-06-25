@@ -10,7 +10,7 @@ export function enumerate<T>(iter: Iterable<T>): Enumerator<T> {
       const res = iterator.next();
 
       self.current = res.value;
-      return res.done;
+      return !res.done;
     },
     [Symbol.iterator]() {
       return iterator;

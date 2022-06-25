@@ -1,3 +1,5 @@
+export * from './from';
+export * from './of';
 export * from './pipe';
 export * from './range';
 export * from './repeat';

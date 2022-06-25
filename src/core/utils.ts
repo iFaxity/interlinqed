@@ -1,4 +1,5 @@
-import { Comparison } from './types';
+import { quicksort } from './quicksort';
+import { Comparison, Enumerable, Grouping, OrderedEnumerable } from './types';
 
 /**
  * Checks if the argument passed is an object
@@ -30,25 +31,72 @@ export function deepEqual<
   return (Object.keys(b).length == keys.length) && keys.every(key => deepEqual(a[key], b[key]));
 }
 
+const COMPARERS = new WeakMap<Enumerable, Comparison[]>();
+
+export function addComparer<T>(source: Enumerable<T>, comparer: Comparison<T>):void {
+  COMPARERS.get(source).push(comparer);
+}
+
+export function createSorter<T>(source: Enumerable<T>, comparer: Comparison<T>):void {
+  COMPARERS.set(source, [ comparer ]);
+}
+
+export function getComparers<T>(source: Enumerable<T>): Comparison<T>[] {
+  return COMPARERS.get(source);
+}
+
 /**
- * Shim to ensure stable sorting in pre ES2019 browser engines, as sorting is unstable
- * @param list - Input array to sort
- * @param comparisons - Array of comparison functions to use in the sorting, at least one is required
- * @returns A copy of the array, but sorted
+ * 
+ * @param iter 
+ * @param comparer 
+ * @returns 
  * @private
  */
-export function stableSort<T>(list: T[], ...comparisons: Comparison<T>[]): T[] {
-  // Sort with comparer functions chained into each other if the previous one returns 0
-  return [...list].sort((x, y) => {
-    let res: number;
+export function createOrderedEnumerable<T>(comparer: Comparison<T>): OrderedEnumerable<T> {
+  const comparers: Comparison<T>[] = [ comparer ];
 
-    for (let idx = 0; idx < comparisons.length; idx++) {
-      res = comparisons[idx](x, y);
-      if (res !== 0) {
-        return res;
-      }
-    }
+  function orderedEnumerable(source: Enumerable<T>): Enumerable<T> {
+    return quicksort(Array.from(source), ...comparers);
+  }
 
-    return list.indexOf(x) - list.indexOf(y);
+  return Object.defineProperty(orderedEnumerable, 'comparers', {
+    value: comparers,
+    writable: false,
+  }) as OrderedEnumerable<T>;
+}
+
+/**
+ * 
+ * @param iter 
+ * @param comparer 
+ * @returns 
+ * @private
+ */
+export function createOrderedComparer<T>(source: OrderedEnumerable<T>, comparer: Comparison<T>): OrderedEnumerable<T> {
+  const comparers: Comparison<T>[] = [ comparer ];
+
+  function orderedEnumerable(source: Enumerable<T>): Enumerable<T> {
+    return quicksort(Array.from(source), ...comparers);
+  }
+
+  return Object.defineProperty(orderedEnumerable, 'comparers', {
+    value: comparers,
+    writable: false,
+  }) as OrderedEnumerable<T>;
+}
+
+/**
+ * 
+ * @param key 
+ * @param iter 
+ * @returns 
+ * @private
+ */
+export function createGroup<TKey, TElement>(key: TKey, iter: Enumerable<TElement>): Grouping<TKey, TElement> {
+  const group = iter as Grouping<TKey, TElement>;
+
+  return Object.defineProperty(group, 'key', {
+    value: key,
+    writable: false,
   });
 }

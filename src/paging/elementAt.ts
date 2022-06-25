@@ -14,7 +14,7 @@ export function elementAt<T>(index: number): Collector<T, T|null> {
     const e = enumerate(source);
 
     while (e.moveNext()) {
-      if (index--) {
+      if (index-- <= 0) {
         return e.current;
       }
     }

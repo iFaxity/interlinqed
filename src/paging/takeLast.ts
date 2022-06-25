@@ -11,8 +11,12 @@ export function takeLast<T>(count: number): Operation<T> {
   }
 
   return function*(source) {
-    const items = [ ...source ];
+    if (count === 0) {
+      yield* source;
+    } else {
+      const items = [ ...source ];
 
-    yield* items.slice(-count);
+      yield* items.slice(-count);
+    }
   };
 }

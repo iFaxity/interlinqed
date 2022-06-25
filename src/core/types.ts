@@ -16,5 +16,15 @@ export interface Predicate<T = unknown> {
 export type Accumulator<T, TAcc, TResult = unknown> = (acc: TAcc, value: T, index: number) => TResult;
 export type Result<T, TOther, TResult> = (a: T, b: TOther) => TResult;
 export type Selector<T, TResult> = (element: T, index: number) => TResult;
+export type Action<T> = (element: T, index: number) => void;
 export type Constructor<T = unknown> = { new (...args: unknown[]): T & object } | { (): T };
 export type ConstructorType<T = unknown> = T extends Constructor<infer TValue> ? TValue : never;
+
+export interface OrderedEnumerable<T> extends Pipe<Enumerable<T>, Enumerable<T>> {
+  comparers: Comparison<T>[];
+}
+
+export interface Grouping<TKey, TElement> extends Enumerable<TElement> {
+  key: TKey;
+}
+

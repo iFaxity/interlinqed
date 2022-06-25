@@ -18,6 +18,8 @@
     "typescript",
     "c#",
     "array",
+    "iterator",
+    "generator",
     "filter"
   ],
   "sideEffects": false,
@@ -33,23 +35,17 @@
     "build:types": "tsc --emitDeclarationOnly",
     "lint": "tsc --noEmit",
     "docs": "typedoc src",
-    "test": "vitest",
-    "coverage": "vitest run --coverage"
-  },
-  "nyc": {
-    "reporter": "lcov",
-    "report-dir": "./cypress/coverage",
-    "temp-dir": "./.nyc_output",
-    "exclude": [
-      "cypress"
-    ]
+    "test": "vitest run",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
-    "@types/node": "^14.14.6",
-    "typedoc": "^0.19.2",
-    "typescript": "^4.0.5",
+    "@types/node": "^18.0.0",
+    "c8": "^7.11.3",
+    "typedoc": "^0.22.17",
+    "typescript": "^4.7.4",
     "vite": "^2.9.12",
     "vitest": "^0.15.2"
   }

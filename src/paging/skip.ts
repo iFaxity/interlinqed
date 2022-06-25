@@ -13,8 +13,8 @@ export function skip<T>(count: number): Operation<T> {
   return function*(source) {
     const e = enumerate(source);
 
-    while (e.moveNext() && count--) {
-      yield e.current;
-    }
+    while (count-- && e.moveNext());
+
+    yield* e;
   }
 }

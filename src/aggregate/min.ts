@@ -7,14 +7,17 @@ import { select } from '../projection';
  * @returns A number that corresponds to the minimum value in the array.
  */
 export function min<T>(selector?: Selector<T, number>): Collector<T, number> {
-  if (typeof selector == 'function') {
+  if (typeof selector != 'function') {
     selector = Number;
   }
 
   return function(source) {
     const e = enumerate<number>(select(selector)(source));
 
-    e.moveNext();
+    if (!e.moveNext()) {
+      throw new Error('Sequence contains no elements!');
+    }
+
     let minimum = e.current;
 
     while (e.moveNext()) {

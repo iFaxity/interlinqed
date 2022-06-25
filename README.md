@@ -6,18 +6,21 @@ InterLINQed
 [![Codacy grade](https://img.shields.io/codacy/grade/e723a0514a1843e584c7f44fb29d3c63?style=for-the-badge&logo=codacy)](https://app.codacy.com/gh/iFaxity/interlinqed/dashboard)
 [![npm](https://img.shields.io/npm/v/interlinqed?style=for-the-badge&logo=npm)](https://npmjs.org/package/interlinqed)
 
-A functional implementation of LINQ in TypeScript, inspired by [linq-ts](https://www.npmjs.com/package/linqts).
+A functional implementation of LINQ in TypeScript using iterators, inspired by [linq-ts](https://www.npmjs.com/package/linqts).
 
 So why use this package over linq-ts?
 Well if you use linq-ts there is no tree shake support at all since it uses classes.
 Which amounts up to 7.4kb minified code (according to bundlephobia).
 7.4kb of code just for transforming lists is a bit much in the modern web, if you do not use everything from the library.
 
-Well this package is funtional and therefore fully tree shaken, which decreases the bundle size to mere bytes if you only use a handful of functions.
+This package is based on pure functions and therefore supports tree-shaking, which decreases the bundle size to mere bytes if you only use a handful of functions.
 
-However to fully support TypeScript this is a functional library that uses a chaining method to chain together the different functions, hence the name **interlinqed**, check the [examples](#examples) section for more specific details.
+However to fully support TypeScript this is a pure-function library that uses a chaining method to chain together the different functions, hence the name **interlinqed**, check the [examples](#examples) section for more specific details.
 
-The target browsers are IE9+ or any ES5 compatible browser version.
+The functions can be used on their own but it is easier to use the linq helper to automatically resolve types and chain the methods correctly.
+
+The target browsers are any ES6 compatible browser version as the package uses Generators.
+Use 1.x.x if support for an older browser is required (IE9+).
 
 Installation
 --------------------------
@@ -31,14 +34,14 @@ API
 --------------------------
 
 ```js
-import { Linq } from 'interlinqed';
+import { linq } from 'interlinqed';
 ```
 
 Examples
 --------------------------
 
 ```js
-import { Linq, Where, Select, OrderBy, ThenByDescending } from 'interlinqed';
+import { linq, where, select, orderBy, thenByDescending, toArray } from 'interlinqed';
 
 const pets = [
   { name: 'Barley', age: 8 },
@@ -51,12 +54,12 @@ const pets = [
   { name: 'Hogan', age: 12 },
 ];
 
-const result = Linq(pets,
-  list => Where(list, pet => pet.age > 3),
-  list => OrderBy(list, pet => pet.age,
-    ThenByDescending(pet => pet.name)
-  ),
-  list => Select(list, pet => ([ pet.name, pet.age ]))
+const result = linq(pets,
+  where(pet => pet.age > 3),
+  orderBy(pet => pet.age),
+  thenByDescending(pet => pet.name),
+  select(pet => ([ pet.name, pet.age ])),
+  toArray(),
 );
 
 /*
@@ -74,7 +77,8 @@ result = [
 Docs
 --------------------------
 
-The typedoc are available [here](https://ifaxity.github.io/interlinqed).
+The typedoc is available [here](https://ifaxity.github.io/interlinqed).
+Only available for the latest version.
 
 Testing
 --------------------------
