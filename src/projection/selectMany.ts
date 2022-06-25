@@ -9,25 +9,27 @@ import { Operation, Selector, Enumerable } from '../core';
  * @returns An array whose elements are the result of invoking the one-to-many transform function collectionSelector
  * on each element of and then mapping each of those array elements and their corresponding element to a result element.
  */
-export function selectMany<TSource, TResult>(collectionSelector: Selector<TSource, TResult>): Operation<TSource, TResult>;
-export function selectMany<TSource, TCollection extends Enumerable, TResult>(
+export function selectMany<TSource extends Enumerable, TResult>(collectionSelector: Selector<TSource, TResult>): Operation<TSource, TResult>;
+export function selectMany<TSource extends Enumerable, TCollection extends Enumerable, TResult>(
   collectionSelector: Selector<TSource, TCollection>,
   resultSelector: (a: TSource, b: TCollection) => TResult
 ): Operation<TSource, TResult>;
-export function selectMany<TSource, TCollection extends Enumerable, TResult>(
+export function selectMany<TSource extends Enumerable, TCollection extends Enumerable, TResult>(
   collectionSelector: Selector<TSource, Enumerable<TCollection>>,
   resultSelector?: (a: TSource, b: TCollection) => TResult
 ): Operation<TSource, TResult> {
   if (typeof resultSelector != 'function') {
     // @ts-ignore
-    resultSelector = (x) => x as TResult;
+    resultSelector = (_, x) => x as TResult;
   }
 
   return function*(source) {
     let idx = 0;
 
     for (let item of source) {
-      for (let subItem of collectionSelector(item, idx++)) {
+      const collection = collectionSelector(item, idx++);
+
+      for (let subItem of collection) {
         yield resultSelector(item, subItem);
       }
     }

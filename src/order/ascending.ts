@@ -16,7 +16,7 @@ function sorter<T, TKey>(key: Key<T, TKey>): Comparison<T> {
  * @param key - A function to extract a key from each element.
  * @returns A Comparison function to use with OrderBy or OrderByDescending.
  */
-export function ThenBy<T, TReturn = any>(key: Key<T, TReturn>): OrderedOperation<T> {
+export function thenBy<T, TReturn = any>(key: Key<T, TReturn>): OrderedOperation<T> {
   return function(source) {
     if ('comparers' in source) {
       source.comparers.push(sorter(key));
@@ -33,6 +33,6 @@ export function ThenBy<T, TReturn = any>(key: Key<T, TReturn>): OrderedOperation
  * @param key - A function to extract a key from an element.
  * @returns An array whose elements are sorted according the key/keys.
  */
-export function OrderBy<T, TKey = any>(key: Key<T, TKey>): OrderedEnumerable<T> {
+export function orderBy<T, TKey = any>(key: Key<T, TKey>): OrderedEnumerable<T> {
   return createOrderedEnumerable<T>(sorter(key));
 }

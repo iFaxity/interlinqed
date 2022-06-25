@@ -3,9 +3,9 @@ import { Grouping } from '../core';
 import { groupBy } from './groupBy';
 
 function verifyGroup<TKey, TItem>(key: TKey, items: TItem[], group: Grouping<TKey, TItem>) {
-  const elements = [ ...group ];
-
   expect(group.key).toEqual(key);
+
+  const elements = [ ...group ];
   expect(elements).toEqual(items);
 }
 
@@ -33,10 +33,10 @@ describe.concurrent('#groupBy()', () => {
       { name: 'Daisy', age: 4.3 }
     ];
 
-    const res = groupBy<any, any>(pet => Math.floor(pet.age))(pets);
+    const res = [ ...groupBy<any, any>(pet => Math.floor(pet.age))(pets) ];
 
     verifyGroup(8, [ { name: 'Barley', age: 8.3 } ], res[0]);
-    verifyGroup(4, [ { name: 'Barley', age: 8.3 } ], res[1]);
-    verifyGroup(1, [ { name: 'Barley', age: 8.3 }, { name: 'Daisy', age: 4.3 } ], res[2]);
+    verifyGroup(4, [ { name: 'Boots', age: 4.9 }, { name: 'Daisy', age: 4.3 } ], res[1]);
+    verifyGroup(1, [ { name: 'Whiskers', age: 1.5 } ], res[2]);
   });
 });
