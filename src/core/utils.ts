@@ -1,5 +1,5 @@
 import { quicksort } from './quicksort';
-import { Comparison, Enumerable, Grouping, OrderedEnumerable } from './types';
+import { Comparison, Enumerable, Grouping, OrderedEnumerable, Pipe, Key } from './types';
 
 /**
  * Checks if the argument passed is an object
@@ -31,58 +31,85 @@ export function deepEqual<
   return (Object.keys(b).length == keys.length) && keys.every(key => deepEqual(a[key], b[key]));
 }
 
-const COMPARERS = new WeakMap<Enumerable, Comparison[]>();
-
-export function addComparer<T>(source: Enumerable<T>, comparer: Comparison<T>):void {
-  COMPARERS.get(source).push(comparer);
-}
-
-export function createSorter<T>(source: Enumerable<T>, comparer: Comparison<T>):void {
-  COMPARERS.set(source, [ comparer ]);
-}
-
-export function getComparers<T>(source: Enumerable<T>): Comparison<T>[] {
-  return COMPARERS.get(source);
-}
-
 /**
  * 
- * @param iter 
+ * @param source 
  * @param comparer 
  * @returns 
  * @private
  */
-export function createOrderedEnumerable<T>(comparer: Comparison<T>): OrderedEnumerable<T> {
-  const comparers: Comparison<T>[] = [ comparer ];
+export function createOrderedEnumerable<T>(comparer: Comparison<T>): Pipe<Enumerable<T>, OrderedEnumerable<T>> {
+  return (source) => {
+    const comparers = [ comparer ];
 
-  function orderedEnumerable(source: Enumerable<T>): Enumerable<T> {
-    return quicksort(Array.from(source), ...comparers);
-  }
-
-  return Object.defineProperty(orderedEnumerable, 'comparers', {
-    value: comparers,
-    writable: false,
-  }) as OrderedEnumerable<T>;
+    return Object.create({
+      comparers,
+      [Symbol.iterator]() {
+        const sorter = quicksort(source, ...comparers);
+  
+        return sorter[Symbol.iterator]();
+      },
+    });
+  };
 }
 
 /**
  * 
- * @param iter 
  * @param comparer 
  * @returns 
  * @private
  */
-export function createOrderedComparer<T>(source: OrderedEnumerable<T>, comparer: Comparison<T>): OrderedEnumerable<T> {
-  const comparers: Comparison<T>[] = [ comparer ];
+export function createOrderedExtension<T>(comparer: Comparison<T>): Pipe<OrderedEnumerable<T>, OrderedEnumerable<T>> {
+  return function(source) {
+    if ('comparers' in source) {
+      source.comparers.push(comparer);
+      return source;
+    }
 
-  function orderedEnumerable(source: Enumerable<T>): Enumerable<T> {
-    return quicksort(Array.from(source), ...comparers);
-  }
+    throw new TypeError('thenBy has to directly follow a orderBy method or another');
+  };
+}
 
-  return Object.defineProperty(orderedEnumerable, 'comparers', {
-    value: comparers,
-    writable: false,
-  }) as OrderedEnumerable<T>;
+/**
+ * 
+ * @param key 
+ * @returns 
+ * @private
+ */
+export function createAscendingComparer<T, TKey>(key: Key<T, TKey>): Comparison<T> {
+  return (first, second) => {
+    const firstKey = key(first);
+    const secondKey = key(second);
+
+    if (firstKey > secondKey) {
+      return 1;
+    } else if (firstKey < secondKey) {
+      return -1;
+    }
+
+    return 0;
+  };
+}
+
+/**
+ * 
+ * @param key 
+ * @returns 
+ * @private
+ */
+export function createDescendingComparer<T, TKey>(key: Key<T, TKey>): Comparison<T> {
+  return (first, second) => {
+    const firstKey = key(first);
+    const secondKey = key(second);
+
+    if (firstKey > secondKey) {
+      return -1;
+    } else if (firstKey < secondKey) {
+      return 1;
+    }
+
+    return 0;
+  };
 }
 
 /**

@@ -5,7 +5,7 @@ export function toArray<T>(): Collector<T, T[]>
 export function toArray<T, TResult>(selector: Selector<T, TResult>): Collector<T, TResult[]>
 export function toArray<T, TResult>(selector?: Selector<T, TResult>): Collector<T, TResult[]> {
   return function(source) {
-    if (typeof source == 'function') {
+    if (typeof selector == 'function') {
       const iter = select(selector)(source);
 
       return [ ...iter ];

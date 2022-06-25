@@ -3,6 +3,7 @@ export type Key<T = unknown, TReturn = KeyTypes> = (key: T) => TReturn;
 
 export type Comparison<T = unknown> = (a: T, b: T) => number;
 export type Enumerable<T = unknown> = Iterable<T>;
+
 export interface Pipe<T = unknown, TRes = unknown> {
   (iter: T): TRes;
 }
@@ -20,7 +21,7 @@ export type Action<T> = (element: T, index: number) => void;
 export type Constructor<T = unknown> = { new (...args: unknown[]): T & object } | { (): T };
 export type ConstructorType<T = unknown> = T extends Constructor<infer TValue> ? TValue : never;
 
-export interface OrderedEnumerable<T> extends Pipe<Enumerable<T>, Enumerable<T>> {
+export interface OrderedEnumerable<T> extends Enumerable<T> {
   comparers: Comparison<T>[];
 }
 

@@ -1,6 +1,5 @@
 import { Key, Result, Operation, Enumerable } from '../core';
 
-
 /**
  * Correlates the elements of two arrays based on matching keys.
  * The default equality comparer is used to compare keys.
@@ -10,7 +9,7 @@ import { Key, Result, Operation, Enumerable } from '../core';
  * @param resultSelector - A function to create a result element from two matching elements.
  * @returns An array that has elements of type TResult that are obtained by performing an inner join on two arrays.
  */
-export function Join<TInner, TOuter, TKey, TResult>(
+export function join<TInner, TOuter, TKey, TResult>(
   outer: Enumerable<TOuter>,
   innerKeySelector: Key<TInner, TKey>,
   outerKeySelector: Key<TOuter, TKey>,
