@@ -1,0 +1,36 @@
+// Vitest Snapshot v1
+
+exports[`#orderBy() > test1 1`] = `
+[
+  {
+    "carbs": 94,
+    "fat": 0,
+    "name": "Jelly bean",
+    "prot": 0,
+  },
+  {
+    "carbs": 24,
+    "fat": 6,
+    "name": "Frozen yogurt",
+    "prot": 4,
+  },
+  {
+    "carbs": 37,
+    "fat": 9,
+    "name": "Ice cream sandwich",
+    "prot": 4.3,
+  },
+  {
+    "carbs": 24,
+    "fat": 16,
+    "name": "Eclair",
+    "prot": 6,
+  },
+  {
+    "carbs": 49,
+    "fat": 16,
+    "name": "Gingerbread",
+    "prot": 0,
+  },
+]
+`;

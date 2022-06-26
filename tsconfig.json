@@ -2,10 +2,11 @@
   "compilerOptions": {
     "module": "esnext",
     "target": "esnext",
+    "moduleResolution": "node",
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "declarationDir": "./types",
+    "declarationDir": "./typings",
     "outDir": "./dist",
     "baseUrl": "./",
     "noImplicitAny": true,
@@ -14,6 +15,9 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "src/*"
+    "src/*.ts"
+  ],
+  "exclude": [
+    "src/*.spec.ts"
   ]
 }

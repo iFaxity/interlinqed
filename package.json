@@ -1,6 +1,6 @@
 {
   "name": "interlinqed",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "A functional implementation of LINQ in TypeScript",
   "author": "iFaxity (christian@faxity.se)",
   "license": "MIT",
@@ -18,53 +18,35 @@
     "typescript",
     "c#",
     "array",
+    "iterator",
+    "generator",
     "filter"
   ],
   "sideEffects": false,
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "types/index.d.ts",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "types": "typings/index.d.ts",
   "files": [
-    "types",
+    "typings",
     "dist"
   ],
   "scripts": {
-    "prebuild": "npm run clean",
-    "build": "node ./bin/build",
-    "clean": "rm -rf dist types",
+    "build": "vite build",
+    "build:types": "tsc --emitDeclarationOnly",
+    "lint": "tsc --noEmit",
     "docs": "typedoc src",
-    "pretest": "rm -rf .nyc_output",
-    "test": "cypress run",
-    "posttest": "rm -rf .nyc_output"
-  },
-  "nyc": {
-    "reporter": "lcov",
-    "report-dir": "./cypress/coverage",
-    "temp-dir": "./.nyc_output",
-    "exclude": [
-      "cypress"
-    ]
+    "test": "vitest run",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.13",
-    "@babel/plugin-proposal-class-properties": "^7.12.13",
-    "@babel/preset-env": "^7.12.13",
-    "@babel/preset-typescript": "^7.12.13",
-    "@cypress/code-coverage": "^3.9.2",
-    "@cypress/webpack-preprocessor": "^5.5.0",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
-    "@types/chai": "^4.2.15",
-    "@types/mocha": "^8.2.0",
-    "@types/node": "^14.14.25",
-    "babel-loader": "^8.2.2",
-    "babel-plugin-istanbul": "^6.0.0",
-    "chai": "^4.3.0",
-    "cypress": "^5.6.0",
-    "esbuild": "^0.8.43",
-    "tslib": "^1.14.1",
-    "typedoc": "^0.19.2",
-    "typescript": "^4.1.5",
-    "webpack": "^4.46.0"
+    "@types/node": "^18.0.0",
+    "c8": "^7.11.3",
+    "typedoc": "^0.22.17",
+    "typescript": "^4.7.4",
+    "vite": "^2.9.12",
+    "vitest": "^0.15.2"
   }
 }
