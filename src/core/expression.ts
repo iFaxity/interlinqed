@@ -60,9 +60,9 @@ function createExpression<T>(predicate: Predicate<T>): Expression<T> {
 * @param expression - Default expression, could be a boolean indicating the default return value
 * @returns The started expression
 */
-export function createPredicate<T = any>(expression?: boolean): Expression<T>;
-export function createPredicate<T = any>(expression?: Predicate<T>): Expression<T>;
-export function createPredicate<T = any>(expression?: Predicate<T>|boolean): Expression<T> {
+export function createPredicate<T>(expression?: boolean|null): Expression<T>;
+export function createPredicate<T>(expression?: Predicate<T>): Expression<T>;
+export function createPredicate<T>(expression?: Predicate<T>|boolean): Expression<T> {
   let current = typeof expression == 'function'
     ? createExpression(expression)
     : null;

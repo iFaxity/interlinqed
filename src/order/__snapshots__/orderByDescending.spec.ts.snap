@@ -3,16 +3,16 @@
 exports[`#orderByDescending() > test1 1`] = `
 [
   {
-    "carbs": 49,
-    "fat": 16,
-    "name": "Gingerbread",
-    "prot": 0,
-  },
-  {
     "carbs": 24,
     "fat": 16,
     "name": "Eclair",
     "prot": 6,
+  },
+  {
+    "carbs": 49,
+    "fat": 16,
+    "name": "Gingerbread",
+    "prot": 0,
   },
   {
     "carbs": 37,

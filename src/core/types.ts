@@ -11,7 +11,7 @@ export type Operation<T = unknown, TRes = T> = Pipe<Enumerable<T>, Enumerable<TR
 export type Collector<T = unknown, TRes = unknown> = Pipe<Enumerable<T>, TRes>;
 
 export interface Predicate<T = unknown> {
-  (value?: T, index?: number): boolean
+  (value: T, index?: number): boolean
 }
 
 export type Accumulator<T, TAcc, TResult = unknown> = (acc: TAcc, value: T, index: number) => TResult;

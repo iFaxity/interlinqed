@@ -1,4 +1,3 @@
-import { quicksort } from './quicksort';
 import { Comparison, Enumerable, Grouping, OrderedEnumerable, Pipe, Key } from './types';
 
 /**
@@ -32,6 +31,30 @@ export function deepEqual<
 }
 
 /**
+ * Shim to ensure stable sorting in pre ES2019 browser engines, as sorting is unstable
+ * @param source - Input iterable to sort
+ * @param comparisons - Array of comparison functions to use in the sorting, at least one is required
+ * @returns A copy of the array, but sorted
+ * @internal
+ */
+function stableSort<T>(source: Enumerable<T>, comparers: Comparison<T>[]): T[] {
+  // Sort with comparer functions chained into each other if the previous one returns 0
+  const list = [ ...source ];
+
+  return list.sort((x, y) => {
+    for (let idx = 0; idx < comparers.length; idx++) {
+      const res = comparers[idx](x, y);
+
+      if (res !== 0) {
+        return res;
+      }
+    }
+
+    return list.indexOf(x) - list.indexOf(y);
+  });
+}
+
+/**
  * 
  * @param source 
  * @param comparer 
@@ -45,9 +68,9 @@ export function createOrderedEnumerable<T>(comparer: Comparison<T>): Pipe<Enumer
     return Object.create({
       comparers,
       [Symbol.iterator]() {
-        const sorter = quicksort(source, ...comparers);
-  
-        return sorter[Symbol.iterator]();
+        const sorted = stableSort(source, comparers);
+
+        return sorted[Symbol.iterator]();
       },
     });
   };

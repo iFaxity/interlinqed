@@ -4,19 +4,19 @@ import { createPredicate } from './expression';
 describe.concurrent('#createPredicate()', () => {
   it('test1', () => {
     const expr = createPredicate<string>(null);
-    expect(expr()).toBeFalsy();
+    expect(expr('a')).toBeFalsy();
   });
   it('test2', () => {
     const expr1 = createPredicate<string>(true);
-    expect(expr1()).toBeTruthy();
+    expect(expr1('a')).toBeTruthy();
 
     const expr2 = createPredicate<string>(false);
-    expect(expr2()).toBeFalsy();
+    expect(expr2('a')).toBeFalsy();
   });
   it('test3', () => {
     const expr1 = createPredicate<string>(() => true);
     const expr2 = createPredicate(expr1);
-    expect(expr2()).toBeTruthy();
+    expect(expr2('a')).toBeTruthy();
   });
 });
 
