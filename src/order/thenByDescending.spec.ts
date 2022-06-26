@@ -10,10 +10,14 @@ const list = [
   { name: 'Jelly bean', fat: 0, carbs: 94, prot: 0 },
 ];
 
-describe.concurrent('#thenByDescending()', () => {
+describe('#thenByDescending()', () => {
   it('test1', () => {
     const res = [ ...thenByDescending<any>(x => x.fat)(orderByDescending<any>(x => x.carbs)(list)) ];
 
     expect(res).toMatchSnapshot();
+  });
+
+  it('test2', () => {
+    expect(() => thenByDescending<any>(x => x.fat)(list as any)).toThrow();
   });
 });

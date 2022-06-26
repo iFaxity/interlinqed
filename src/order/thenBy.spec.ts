@@ -10,10 +10,13 @@ const list = [
   { name: 'Jelly bean', fat: 0, carbs: 94, prot: 0 },
 ];
 
-describe.concurrent('#thenBy()', () => {
+describe('#thenBy()', () => {
   it('test1', () => {
     const res = [ ...thenBy<any>(x => x.fat)(orderBy<any>(x => x.carbs)(list)) ];
 
     expect(res).toMatchSnapshot();
+  });
+  it('test2', () => {
+    expect(() => thenBy<any>(x => x.fat)(list as any)).toThrow();
   });
 });
