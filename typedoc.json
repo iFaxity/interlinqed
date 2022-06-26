@@ -1,15 +1,12 @@
 {
+  "$schema": "https://typedoc.org/schema.json",
   "name": "InterLINQed",
-  "mode": "file",
   "out": "docs",
   "readme": "./README.md",
   "exclude": [
     "**/node_modules/**"
   ],
-  "excludeNotExported": true,
   "excludePrivate": true,
   "excludeProtected": true,
-  "ignoreCompilerErrors": false,
-  "preserveConstEnums": true,
-  "stripInternal": true
+  "excludeInternal": true
 }

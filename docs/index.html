@@ -1,337 +1,55 @@
-<!doctype html>
-<html class="default no-js">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>InterLINQed</title>
-	<meta name="description" content="Documentation for InterLINQed">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="assets/css/main.css">
-</head>
-<body>
-<header>
-	<div class="tsd-page-toolbar">
-		<div class="container">
-			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
-					<div class="field">
-						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
-						<input id="tsd-search-field" type="text" />
-					</div>
-					<ul class="results">
-						<li class="state loading">Preparing search index...</li>
-						<li class="state failure">The search index is not available</li>
-					</ul>
-					<a href="index.html" class="title">InterLINQed</a>
-				</div>
-				<div class="table-cell" id="tsd-widgets">
-					<div id="tsd-filter">
-						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
-						<div class="tsd-filter-group">
-							<div class="tsd-select" id="tsd-filter-visibility">
-								<span class="tsd-select-label">All</span>
-								<ul class="tsd-select-list">
-									<li data-value="public">Public</li>
-									<li data-value="protected">Public/Protected</li>
-									<li data-value="private" class="selected">All</li>
-								</ul>
-							</div>
-							<input type="checkbox" id="tsd-filter-inherited" checked />
-							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-						</div>
-					</div>
-					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="tsd-page-title">
-		<div class="container">
-			<ul class="tsd-breadcrumb">
-				<li>
-					<a href="globals.html">Globals</a>
-				</li>
-			</ul>
-			<h1>InterLINQed</h1>
-		</div>
-	</div>
-</header>
-<div class="container container-main">
-	<div class="row">
-		<div class="col-8 col-content">
-			<div class="tsd-panel tsd-typography">
-				<a href="#interlinqed" id="interlinqed" style="color: inherit; text-decoration: none;">
-					<h1>InterLINQed</h1>
-				</a>
-				<p><a href="https://github.com/iFaxity/linqts/actions"><img src="https://img.shields.io/github/workflow/status/ifaxity/linqts/Cypress?style=for-the-badge&logo=github" alt="GitHub Workflow Status"></a>
-					<a href="https://codecov.io/gh/iFaxity/linqts"><img src="https://img.shields.io/codecov/c/github/ifaxity/linqts?style=for-the-badge&logo=codecov" alt="Codecov"></a>
-				<a href="https://app.codacy.com/manual/iFaxity/linqts/dashboard"><img src="https://img.shields.io/codacy/grade/e723a0514a1843e584c7f44fb29d3c63?style=for-the-badge&logo=codacy" alt="Codacy grade"></a></p>
-				<p>A functional implementation of LINQ in TypeScript</p>
-				<p>So why use this package over <a href="https://www.npmjs.com/package/linqts">linq-ts</a>?
-					Well if you use linq-ts there is no tree shake support at all since it uses classes.
-					Which amounts up to 7.4kb minified code (according to bundlephobia).
-				7.4kb of code just for transforming lists is a bit much in the modern web, if you do not use everything from the library.</p>
-				<p>Well this package is funtional and therefore fully tree shaken, which decreases the bundle size to mere bytes if you only use a handful of functions.</p>
-				<p>However to fully support TypeScript this is a functional library that uses a chaining method to chain together the different functions, hence the name <strong>interlinqed</strong>, check the <a href="#examples">examples</a> section for more specific details.</p>
-				<p>The target browsers are IE9+ or any ES5 compatible browser version.</p>
-				<p>A full list of functions and the typedocs will be available soon.</p>
-				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
-					<h2>Installation</h2>
-				</a>
-				<p><code>$ npm i interlinqed</code></p>
-				<p>or if you use yarn</p>
-				<p><code>$ yarn add interlinqed</code></p>
-				<a href="#api" id="api" style="color: inherit; text-decoration: none;">
-					<h2>API</h2>
-				</a>
-				<pre><code class="language-js"><span class="hljs-keyword">import</span> { Linq } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;interlinqed&#x27;</span>;</code></pre>
-				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
-					<h2>Examples</h2>
-				</a>
-				<pre><code class="language-js"><span class="hljs-keyword">import</span> { Linq, Where, Select, OrderBy, ThenByDescending } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;interlinqed&#x27;</span>;
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>InterLINQed</title><meta name="description" content="Documentation for InterLINQed"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">InterLINQed</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>InterLINQed </h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
+<a href="#interlinqed" id="interlinqed" style="color: inherit; text-decoration: none;">
+  <h1>InterLINQed</h1>
+</a>
+<p><a href="https://github.com/iFaxity/interlinqed/actions"><img src="https://img.shields.io/github/workflow/status/ifaxity/interlinqed/Test%20and%20Deploy?style=for-the-badge&logo=github" alt="GitHub Workflow Status"></a>
+<a href="https://codecov.io/gh/iFaxity/interlinqed"><img src="https://img.shields.io/codecov/c/github/ifaxity/interlinqed?style=for-the-badge&logo=codecov" alt="Codecov"></a>
+<a href="https://app.codacy.com/gh/iFaxity/interlinqed/dashboard"><img src="https://img.shields.io/codacy/grade/e723a0514a1843e584c7f44fb29d3c63?style=for-the-badge&logo=codacy" alt="Codacy grade"></a>
+<a href="https://npmjs.org/package/interlinqed"><img src="https://img.shields.io/npm/v/interlinqed?style=for-the-badge&logo=npm" alt="npm"></a></p>
+<p>A functional implementation of LINQ in TypeScript using iterators, inspired by <a href="https://www.npmjs.com/package/linqts">linq-ts</a>.</p>
+<p>So why use this package over linq-ts?
+Well if you use linq-ts there is no tree shake support at all since it uses classes.
+Which amounts up to 7.4kb minified code (according to bundlephobia).
+7.4kb of code just for transforming lists is a bit much in the modern web, if you do not use everything from the library.</p>
+<p>This package is based on pure functions and therefore supports tree-shaking, which decreases the bundle size to mere bytes if you only use a handful of functions.</p>
+<p>However to fully support TypeScript this is a pure-function library that uses a chaining method to chain together the different functions, hence the name <strong>interlinqed</strong>, check the <a href="#examples">examples</a> section for more specific details.</p>
+<p>The functions can be used on their own but it is easier to use the linq helper to automatically resolve types and chain the methods correctly.</p>
+<p>The target browsers are any ES6 compatible browser version as the package uses Generators.
+Use 1.x.x if support for an older browser is required (IE9+).</p>
 
-<span class="hljs-keyword">const</span> pets = [
-  { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Barley&#x27;</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">8</span> },
-  { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Boots&#x27;</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">4</span> },
-  { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Whiskers&#x27;</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">1</span> },
-  { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Daisy&#x27;</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">4</span> },
-  { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Lyric&#x27;</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">7</span> },
-  { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Troy&#x27;</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">3</span> },
-  { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Teddy&#x27;</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">1</span> },
-  { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Hogan&#x27;</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">12</span> },
-];
+<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+  <h2>Installation</h2>
+</a>
+<p><code>$ npm i interlinqed</code></p>
+<p>or if you use yarn</p>
+<p><code>$ yarn add interlinqed</code></p>
 
-<span class="hljs-keyword">const</span> result = Linq(pets,
-  <span class="hljs-function"><span class="hljs-params">list</span> =&gt;</span> Where(list, <span class="hljs-function"><span class="hljs-params">pet</span> =&gt;</span> pet.age &gt; <span class="hljs-number">3</span>),
-  <span class="hljs-function"><span class="hljs-params">list</span> =&gt;</span> OrderBy(list, <span class="hljs-function"><span class="hljs-params">pet</span> =&gt;</span> pet.age,
-    ThenByDescending(<span class="hljs-function"><span class="hljs-params">pet</span> =&gt;</span> pet.name)
-  ),
-  <span class="hljs-function"><span class="hljs-params">list</span> =&gt;</span> Select(list, <span class="hljs-function"><span class="hljs-params">pet</span> =&gt;</span> ([ pet.name, pet.age ]))
-);
-
-<span class="hljs-comment">/*
-result = [
-  [ &#x27;Daisy&#x27;, 4 ],
-  [ &#x27;Boots&#x27;, 4 ],
-  [ &#x27;Lyric&#x27;, 7 ],
-  [ &#x27;Barley&#x27;, 8 ],
-  [ &#x27;Hogan&#x27;, 12 ],
-];
-*/</span>
+<a href="#api" id="api" style="color: inherit; text-decoration: none;">
+  <h2>API</h2>
+</a>
+<pre><code class="language-js"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">linq</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;interlinqed&#39;</span><span class="hl-1">;</span>
 </code></pre>
-				<a href="#docs" id="docs" style="color: inherit; text-decoration: none;">
-					<h2>Docs</h2>
-				</a>
-				<p>The typedoc are available <a href="https://ifaxity.github.io/interlinqed">here</a>.</p>
-				<a href="#testing" id="testing" style="color: inherit; text-decoration: none;">
-					<h2>Testing</h2>
-				</a>
-				<pre><code class="language-sh">$ npm run <span class="hljs-built_in">test</span></code></pre>
-				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
-					<h2>License</h2>
-				</a>
-				<p><a href="./LICENSE">MIT</a></p>
-			</div>
-		</div>
-		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
-			<nav class="tsd-navigation primary">
-				<ul>
-					<li class="globals  ">
-						<a href="globals.html"><em>Globals</em></a>
-					</li>
-				</ul>
-			</nav>
-			<nav class="tsd-navigation secondary menu-sticky">
-				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="interfaces/predicate.html" class="tsd-kind-icon">Predicate</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="globals.html#accumulator" class="tsd-kind-icon">Accumulator</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="globals.html#comparison" class="tsd-kind-icon">Comparison</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="globals.html#constructor" class="tsd-kind-icon">Constructor</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="globals.html#constructortype" class="tsd-kind-icon">Constructor<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="globals.html#flow" class="tsd-kind-icon">Flow</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="globals.html#key" class="tsd-kind-icon">Key</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="globals.html#result" class="tsd-kind-icon">Result</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="globals.html#selector" class="tsd-kind-icon">Selector</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#aggregate" class="tsd-kind-icon">Aggregate</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#all" class="tsd-kind-icon">All</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#any" class="tsd-kind-icon">Any</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#average" class="tsd-kind-icon">Average</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#cast" class="tsd-kind-icon">Cast</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#contains" class="tsd-kind-icon">Contains</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#count" class="tsd-kind-icon">Count</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#defaultifempty" class="tsd-kind-icon">Default<wbr>IfEmpty</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#distinct" class="tsd-kind-icon">Distinct</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#distinctby" class="tsd-kind-icon">Distinct<wbr>By</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#elementat" class="tsd-kind-icon">Element<wbr>At</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#except" class="tsd-kind-icon">Except</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#first" class="tsd-kind-icon">First</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#groupby" class="tsd-kind-icon">Group<wbr>By</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#groupjoin" class="tsd-kind-icon">Group<wbr>Join</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#insert" class="tsd-kind-icon">Insert</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#intersect" class="tsd-kind-icon">Intersect</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#join" class="tsd-kind-icon">Join</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#last" class="tsd-kind-icon">Last</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#linq" class="tsd-kind-icon">Linq</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#max" class="tsd-kind-icon">Max</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#min" class="tsd-kind-icon">Min</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#new" class="tsd-kind-icon">New</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#oftype" class="tsd-kind-icon">Of<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#orderby" class="tsd-kind-icon">Order<wbr>By</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#orderbydescending" class="tsd-kind-icon">Order<wbr>ByDescending</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#range" class="tsd-kind-icon">Range</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#remove" class="tsd-kind-icon">Remove</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#removeat" class="tsd-kind-icon">Remove<wbr>At</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#repeat" class="tsd-kind-icon">Repeat</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#reverse" class="tsd-kind-icon">Reverse</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#select" class="tsd-kind-icon">Select</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#selectmany" class="tsd-kind-icon">Select<wbr>Many</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#sequenceequal" class="tsd-kind-icon">Sequence<wbr>Equal</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#single" class="tsd-kind-icon">Single</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#skip" class="tsd-kind-icon">Skip</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#skiplast" class="tsd-kind-icon">Skip<wbr>Last</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#skipwhile" class="tsd-kind-icon">Skip<wbr>While</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#sum" class="tsd-kind-icon">Sum</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#take" class="tsd-kind-icon">Take</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#takelast" class="tsd-kind-icon">Take<wbr>Last</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#takewhile" class="tsd-kind-icon">Take<wbr>While</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#thenby" class="tsd-kind-icon">Then<wbr>By</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#thenbydescending" class="tsd-kind-icon">Then<wbr>ByDescending</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#toobject" class="tsd-kind-icon">To<wbr>Object</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#union" class="tsd-kind-icon">Union</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#where" class="tsd-kind-icon">Where</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#zip" class="tsd-kind-icon">Zip</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
-	</div>
-</div>
-<footer class="with-border-bottom">
-	<div class="container">
-		<h2>Legend</h2>
-		<div class="tsd-legend-group">
-		</div>
-	</div>
-</footer>
-<div class="container tsd-generator">
-	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
-</div>
-<div class="overlay"></div>
-<script src="assets/js/main.js"></script>
-</body>
-</html>
+
+<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+  <h2>Examples</h2>
+</a>
+<pre><code class="language-js"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">linq</span><span class="hl-1">, </span><span class="hl-2">where</span><span class="hl-1">, </span><span class="hl-2">select</span><span class="hl-1">, </span><span class="hl-2">orderBy</span><span class="hl-1">, </span><span class="hl-2">thenByDescending</span><span class="hl-1">, </span><span class="hl-2">toArray</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;interlinqed&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">pets</span><span class="hl-1"> = [</span><br/><span class="hl-1">  { </span><span class="hl-2">name:</span><span class="hl-1"> </span><span class="hl-3">&#39;Barley&#39;</span><span class="hl-1">, </span><span class="hl-2">age:</span><span class="hl-1"> </span><span class="hl-6">8</span><span class="hl-1"> },</span><br/><span class="hl-1">  { </span><span class="hl-2">name:</span><span class="hl-1"> </span><span class="hl-3">&#39;Boots&#39;</span><span class="hl-1">, </span><span class="hl-2">age:</span><span class="hl-1"> </span><span class="hl-6">4</span><span class="hl-1"> },</span><br/><span class="hl-1">  { </span><span class="hl-2">name:</span><span class="hl-1"> </span><span class="hl-3">&#39;Whiskers&#39;</span><span class="hl-1">, </span><span class="hl-2">age:</span><span class="hl-1"> </span><span class="hl-6">1</span><span class="hl-1"> },</span><br/><span class="hl-1">  { </span><span class="hl-2">name:</span><span class="hl-1"> </span><span class="hl-3">&#39;Daisy&#39;</span><span class="hl-1">, </span><span class="hl-2">age:</span><span class="hl-1"> </span><span class="hl-6">4</span><span class="hl-1"> },</span><br/><span class="hl-1">  { </span><span class="hl-2">name:</span><span class="hl-1"> </span><span class="hl-3">&#39;Lyric&#39;</span><span class="hl-1">, </span><span class="hl-2">age:</span><span class="hl-1"> </span><span class="hl-6">7</span><span class="hl-1"> },</span><br/><span class="hl-1">  { </span><span class="hl-2">name:</span><span class="hl-1"> </span><span class="hl-3">&#39;Troy&#39;</span><span class="hl-1">, </span><span class="hl-2">age:</span><span class="hl-1"> </span><span class="hl-6">3</span><span class="hl-1"> },</span><br/><span class="hl-1">  { </span><span class="hl-2">name:</span><span class="hl-1"> </span><span class="hl-3">&#39;Teddy&#39;</span><span class="hl-1">, </span><span class="hl-2">age:</span><span class="hl-1"> </span><span class="hl-6">1</span><span class="hl-1"> },</span><br/><span class="hl-1">  { </span><span class="hl-2">name:</span><span class="hl-1"> </span><span class="hl-3">&#39;Hogan&#39;</span><span class="hl-1">, </span><span class="hl-2">age:</span><span class="hl-1"> </span><span class="hl-6">12</span><span class="hl-1"> },</span><br/><span class="hl-1">];</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">result</span><span class="hl-1"> = </span><span class="hl-7">linq</span><span class="hl-1">(</span><span class="hl-2">pets</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-7">where</span><span class="hl-1">(</span><span class="hl-2">pet</span><span class="hl-1"> </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-2">pet</span><span class="hl-1">.</span><span class="hl-2">age</span><span class="hl-1"> &gt; </span><span class="hl-6">3</span><span class="hl-1">),</span><br/><span class="hl-1">  </span><span class="hl-7">orderBy</span><span class="hl-1">(</span><span class="hl-2">pet</span><span class="hl-1"> </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-2">pet</span><span class="hl-1">.</span><span class="hl-2">age</span><span class="hl-1">),</span><br/><span class="hl-1">  </span><span class="hl-7">thenByDescending</span><span class="hl-1">(</span><span class="hl-2">pet</span><span class="hl-1"> </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-2">pet</span><span class="hl-1">.</span><span class="hl-2">name</span><span class="hl-1">),</span><br/><span class="hl-1">  </span><span class="hl-7">select</span><span class="hl-1">(</span><span class="hl-2">pet</span><span class="hl-1"> </span><span class="hl-4">=&gt;</span><span class="hl-1"> ([ </span><span class="hl-2">pet</span><span class="hl-1">.</span><span class="hl-2">name</span><span class="hl-1">, </span><span class="hl-2">pet</span><span class="hl-1">.</span><span class="hl-2">age</span><span class="hl-1"> ])),</span><br/><span class="hl-1">  </span><span class="hl-7">toArray</span><span class="hl-1">(),</span><br/><span class="hl-1">);</span><br/><br/><span class="hl-8">/*</span><br/><span class="hl-8">result = [</span><br/><span class="hl-8">  [ &#39;Daisy&#39;, 4 ],</span><br/><span class="hl-8">  [ &#39;Boots&#39;, 4 ],</span><br/><span class="hl-8">  [ &#39;Lyric&#39;, 7 ],</span><br/><span class="hl-8">  [ &#39;Barley&#39;, 8 ],</span><br/><span class="hl-8">  [ &#39;Hogan&#39;, 12 ],</span><br/><span class="hl-8">];</span><br/><span class="hl-8">*/</span><br/>
+</code></pre>
+
+<a href="#docs" id="docs" style="color: inherit; text-decoration: none;">
+  <h2>Docs</h2>
+</a>
+<p>The typedoc is available <a href="https://ifaxity.github.io/interlinqed">here</a>.
+Only available for the latest version.</p>
+
+<a href="#testing" id="testing" style="color: inherit; text-decoration: none;">
+  <h2>Testing</h2>
+</a>
+<pre><code class="language-sh"><span class="hl-1">$ npm run </span><span class="hl-7">test</span>
+</code></pre>
+
+<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+  <h2>License</h2>
+</a>
+<p><a href="./LICENSE">MIT</a></p>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/Enumerator.html" class="tsd-kind-icon">Enumerator</a></li><li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/Expression.html" class="tsd-kind-icon">Expression</a></li><li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/Grouping.html" class="tsd-kind-icon">Grouping</a></li><li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/OrderedEnumerable.html" class="tsd-kind-icon">Ordered<wbr/>Enumerable</a></li><li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/Pipe.html" class="tsd-kind-icon">Pipe</a></li><li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/Predicate.html" class="tsd-kind-icon">Predicate</a></li><li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#Accumulator" class="tsd-kind-icon">Accumulator</a></li><li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#Action" class="tsd-kind-icon">Action</a></li><li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#Collector" class="tsd-kind-icon">Collector</a></li><li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#Comparison" class="tsd-kind-icon">Comparison</a></li><li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#Constructor" class="tsd-kind-icon">Constructor</a></li><li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#ConstructorType" class="tsd-kind-icon">Constructor<wbr/>Type</a></li><li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#Enumerable" class="tsd-kind-icon">Enumerable</a></li><li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#Key" class="tsd-kind-icon">Key</a></li><li class="tsd-kind-type-alias"><a href="modules.html#KeyTypes" class="tsd-kind-icon">Key<wbr/>Types</a></li><li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#Lookup" class="tsd-kind-icon">Lookup</a></li><li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#Operation" class="tsd-kind-icon">Operation</a></li><li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#Result" class="tsd-kind-icon">Result</a></li><li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#Selector" class="tsd-kind-icon">Selector</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#aggregate" class="tsd-kind-icon">aggregate</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#all" class="tsd-kind-icon">all</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#any" class="tsd-kind-icon">any</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#average" class="tsd-kind-icon">average</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#cast" class="tsd-kind-icon">cast</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#concat" class="tsd-kind-icon">concat</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#contains" class="tsd-kind-icon">contains</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#count" class="tsd-kind-icon">count</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#createPredicate" class="tsd-kind-icon">create<wbr/>Predicate</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#defaultIfEmpty" class="tsd-kind-icon">default<wbr/>If<wbr/>Empty</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#distinct" class="tsd-kind-icon">distinct</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#distinctBy" class="tsd-kind-icon">distinct<wbr/>By</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#elementAt" class="tsd-kind-icon">element<wbr/>At</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#enumerate" class="tsd-kind-icon">enumerate</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#except" class="tsd-kind-icon">except</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#first" class="tsd-kind-icon">first</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#forEach" class="tsd-kind-icon">for<wbr/>Each</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#from" class="tsd-kind-icon">from</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#groupBy" class="tsd-kind-icon">group<wbr/>By</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#groupJoin" class="tsd-kind-icon">group<wbr/>Join</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#intersect" class="tsd-kind-icon">intersect</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#join" class="tsd-kind-icon">join</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#last" class="tsd-kind-icon">last</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#max" class="tsd-kind-icon">max</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#min" class="tsd-kind-icon">min</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#of" class="tsd-kind-icon">of</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#ofType" class="tsd-kind-icon">of<wbr/>Type</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#orderBy" class="tsd-kind-icon">order<wbr/>By</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#orderByDescending" class="tsd-kind-icon">order<wbr/>By<wbr/>Descending</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#pipe" class="tsd-kind-icon">pipe</a></li><li class="tsd-kind-function"><a href="modules.html#range" class="tsd-kind-icon">range</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#repeat" class="tsd-kind-icon">repeat</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#reverse" class="tsd-kind-icon">reverse</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#select" class="tsd-kind-icon">select</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#selectMany" class="tsd-kind-icon">select<wbr/>Many</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#sequenceEqual" class="tsd-kind-icon">sequence<wbr/>Equal</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#single" class="tsd-kind-icon">single</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#skip" class="tsd-kind-icon">skip</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#skipLast" class="tsd-kind-icon">skip<wbr/>Last</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#skipWhile" class="tsd-kind-icon">skip<wbr/>While</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#sum" class="tsd-kind-icon">sum</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#take" class="tsd-kind-icon">take</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#takeLast" class="tsd-kind-icon">take<wbr/>Last</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#thenBy" class="tsd-kind-icon">then<wbr/>By</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#thenByDescending" class="tsd-kind-icon">then<wbr/>By<wbr/>Descending</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#toArray" class="tsd-kind-icon">to<wbr/>Array</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#toEntries" class="tsd-kind-icon">to<wbr/>Entries</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#toLookup" class="tsd-kind-icon">to<wbr/>Lookup</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#toMap" class="tsd-kind-icon">to<wbr/>Map</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#toObject" class="tsd-kind-icon">to<wbr/>Object</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#toSet" class="tsd-kind-icon">to<wbr/>Set</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#union" class="tsd-kind-icon">union</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#where" class="tsd-kind-icon">where</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#zip" class="tsd-kind-icon">zip</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li><li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>

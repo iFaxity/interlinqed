@@ -1,4 +1,4 @@
-import { Enumerable, Key, Collector, createGroup, Grouping, Operation } from '../core';
+import { Enumerable, Key, Collector, createGroup, Grouping, Operation, enumerate } from '../core';
 import { select, from } from '../projection';
 
 export type Lookup<TKey, TValue> = Enumerable<Grouping<TKey, TValue>>;
@@ -14,7 +14,7 @@ export function toLookup<T, TKey, TResult>(keySelector: Key<T, TKey>, resultSele
 export function toLookup<T, TKey, TResult>(keySelector: Key<T, TKey>, resultSelector?: (element: T) => TResult): Collector<T, Lookup<TKey, TResult>> {
   const iterate: Operation<any, TResult> = typeof resultSelector == 'function'
     ? select(resultSelector)
-    : from;
+    : enumerate;
 
   return function*(source) {
     const cache = new Map<TKey, T[]>();
