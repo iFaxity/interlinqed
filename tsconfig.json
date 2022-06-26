@@ -10,12 +10,16 @@
     "declarationDir": "./typings",
     "outDir": "./dist",
     "baseUrl": "./src",
+    "rootDir": "./src",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "src/*.ts"
+    "src/**/*.ts"
+  ],
+  "exclude":[
+    "src/**/*.spec.ts"
   ]
 }
