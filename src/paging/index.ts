@@ -7,5 +7,5 @@ export * from './skip';
 export * from './skipLast';
 export * from './skipWhile';
 export * from './take';
-export * from './skip';
 export * from './takeLast';
+export * from './takeWhile';

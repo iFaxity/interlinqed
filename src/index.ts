@@ -2,7 +2,7 @@
 export * from './core/enumerator';
 export * from './core/expression';
 export * from './core/types';
-
+// Export every methods
 export * from './aggregate';
 export * from './group';
 export * from './join';

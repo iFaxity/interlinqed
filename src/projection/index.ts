@@ -1,4 +1,5 @@
 export * from './from';
+export * from './linq';
 export * from './of';
 export * from './pipe';
 export * from './range';

@@ -5,7 +5,7 @@ import { Comparison, Enumerable, Grouping, OrderedEnumerable, Pipe, Key } from '
  * Checks if the argument passed is an object
  * @param input - Input data to verify if it is an object
  * @returns A boolean with the result
- * @private
+ * @internal
  */
 export function isObject<T extends object>(input: any): input is T {
   return input != null && typeof input == 'object';
@@ -16,7 +16,7 @@ export function isObject<T extends object>(input: any): input is T {
  * @param a - Object a to compare
  * @param b - Object to compare a against
  * @returns A boolean with the result
- * @private
+ * @internal
  */
 export function deepEqual<
   T extends Record<string, any>,
@@ -36,7 +36,7 @@ export function deepEqual<
  * @param source 
  * @param comparer 
  * @returns 
- * @private
+ * @internal
  */
 export function createOrderedEnumerable<T>(comparer: Comparison<T>): Pipe<Enumerable<T>, OrderedEnumerable<T>> {
   return (source) => {
@@ -57,7 +57,7 @@ export function createOrderedEnumerable<T>(comparer: Comparison<T>): Pipe<Enumer
  * 
  * @param comparer 
  * @returns 
- * @private
+ * @internal
  */
 export function createOrderedExtension<T>(comparer: Comparison<T>): Pipe<OrderedEnumerable<T>, OrderedEnumerable<T>> {
   return function(source) {
@@ -74,7 +74,7 @@ export function createOrderedExtension<T>(comparer: Comparison<T>): Pipe<Ordered
  * 
  * @param key 
  * @returns 
- * @private
+ * @internal
  */
 export function createAscendingComparer<T, TKey>(key: Key<T, TKey>): Comparison<T> {
   return (first, second) => {
@@ -95,7 +95,7 @@ export function createAscendingComparer<T, TKey>(key: Key<T, TKey>): Comparison<
  * 
  * @param key 
  * @returns 
- * @private
+ * @internal
  */
 export function createDescendingComparer<T, TKey>(key: Key<T, TKey>): Comparison<T> {
   return (first, second) => {
@@ -117,7 +117,7 @@ export function createDescendingComparer<T, TKey>(key: Key<T, TKey>): Comparison
  * @param key 
  * @param iter 
  * @returns 
- * @private
+ * @internal
  */
 export function createGroup<TKey, TElement>(key: TKey, iter: Enumerable<TElement>): Grouping<TKey, TElement> {
   const group = iter as Grouping<TKey, TElement>;

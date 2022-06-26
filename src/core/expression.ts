@@ -18,7 +18,7 @@ export interface Expression<T = any> extends Predicate<T> {
  * 
  * @param value 
  * @returns
- * @private
+ * @internal
  */
 function defaultPredicate<T>(value: any): Predicate<T> {
   return value === true
@@ -28,7 +28,7 @@ function defaultPredicate<T>(value: any): Predicate<T> {
 
 /**
  * Base prototype for Expression
- * @private
+ * @internal
  */
 const PredicateExpression: Expression = Object.defineProperties(Object.create(Function), {
   and: {
@@ -47,7 +47,7 @@ const PredicateExpression: Expression = Object.defineProperties(Object.create(Fu
  * Helper function to ensure the predicate is an expression
  * @param predicate - Predicate to mutate the expression for
  * @returns The created Expression
- * @private
+ * @internal
  */
 function createExpression<T>(predicate: Predicate<T>): Expression<T> {
   return Object.prototype.isPrototypeOf.call(PredicateExpression, predicate)

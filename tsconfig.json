@@ -2,13 +2,14 @@
   "compilerOptions": {
     "module": "esnext",
     "target": "esnext",
+    "composite": true,
     "moduleResolution": "node",
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
     "declarationDir": "./typings",
     "outDir": "./dist",
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -16,8 +17,5 @@
   },
   "include": [
     "src/*.ts"
-  ],
-  "exclude": [
-    "src/*.spec.ts"
   ]
 }
