@@ -52,6 +52,10 @@ jobs:
           path: ${{ env.CACHE_PATHS }}
           key: ${{ runner.os }}#${{ hashFiles('package-lock.json') }}
 
+      # Run TSC Lint
+      - name: Lint TypeScript
+        run: npm run lint
+
       # Run tests
       - name: Run Vitest
         run: npm run test:coverage
@@ -79,6 +83,8 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+      - name: Build types
+        run: npm run build:types
 
       - name: Release
         run: npx semantic-release
