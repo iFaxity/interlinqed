@@ -1,7 +1,10 @@
 export type KeyTypes = string|number|symbol;
 export type Key<T = unknown, TReturn = KeyTypes> = (key: T) => TReturn;
 
+export type ComparisonKey<T = unknown, TReturn = ComparisonKeyTypes> = (key: T) => TReturn;
+export type ComparisonKeyTypes = number|string|boolean|BigInt|null|undefined|unknown;
 export type Comparison<T = unknown> = (a: T, b: T) => number;
+
 export type Enumerable<T = unknown> = Iterable<T>;
 
 export interface Pipe<T = unknown, TRes = unknown> {
@@ -9,6 +12,7 @@ export interface Pipe<T = unknown, TRes = unknown> {
 }
 export type Operation<T = unknown, TRes = T> = Pipe<Enumerable<T>, Enumerable<TRes>>;
 export type Collector<T = unknown, TRes = unknown> = Pipe<Enumerable<T>, TRes>;
+type t = Generator
 
 export interface Predicate<T = unknown> {
   (value: T, index?: number): boolean
@@ -25,7 +29,7 @@ export interface OrderedEnumerable<T> extends Enumerable<T> {
   comparers: Comparison<T>[];
 }
 
-export interface Grouping<TKey, TElement> extends Enumerable<TElement> {
+export interface Grouping<TKey, TElement> extends Array<TElement> {
   key: TKey;
 }
 

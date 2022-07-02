@@ -1,4 +1,4 @@
-import { Comparison, Enumerable, Grouping, OrderedEnumerable, Pipe, Key } from './types';
+import { Comparison, Enumerable, Grouping, OrderedEnumerable, Pipe, Key, ComparisonKey, ComparisonKeyTypes } from './types';
 
 /**
  * Checks if the argument passed is an object
@@ -99,7 +99,7 @@ export function createOrderedExtension<T>(comparer: Comparison<T>): Pipe<Ordered
  * @returns 
  * @internal
  */
-export function createAscendingComparer<T, TKey>(key: Key<T, TKey>): Comparison<T> {
+export function createAscendingComparer<T, TKey extends ComparisonKeyTypes>(key: ComparisonKey<T, TKey>): Comparison<T> {
   return (first, second) => {
     const firstKey = key(first);
     const secondKey = key(second);
@@ -120,7 +120,7 @@ export function createAscendingComparer<T, TKey>(key: Key<T, TKey>): Comparison<
  * @returns 
  * @internal
  */
-export function createDescendingComparer<T, TKey>(key: Key<T, TKey>): Comparison<T> {
+export function createDescendingComparer<T, TKey extends ComparisonKeyTypes>(key: ComparisonKey<T, TKey>): Comparison<T> {
   return (first, second) => {
     const firstKey = key(first);
     const secondKey = key(second);

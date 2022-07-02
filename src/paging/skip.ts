@@ -13,8 +13,11 @@ export function skip<T>(count: number): Operation<T> {
   return function*(source) {
     const e = enumerate(source);
 
+    // Skip to index
     while (count-- && e.moveNext());
 
-    yield* e;
+    while (e.moveNext()) {
+      yield e.current;
+    }
   }
 }

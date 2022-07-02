@@ -1,14 +1,12 @@
 import { Collector } from '../core';
 import { toEntries } from './toEntries';
 
-export function toMap<T, TKey extends (string|number|symbol)>(
-  keySelector: (key: T) => TKey
-): Collector<T, Map<TKey, T>>;
-export function toMap<T, TKey extends (string|number|symbol), TValue>(
+export function toMap<T, TKey>(keySelector: (key: T) => TKey): Collector<T, Map<TKey, T>>;
+export function toMap<T, TKey, TValue>(
   keySelector: (key: T) => TKey,
   valueSelector: (value: T) => TValue
 ): Collector<T, Map<TKey, TValue>>;
-export function toMap<T, TKey extends (string|number|symbol), TValue>(
+export function toMap<T, TKey, TValue>(
   keySelector: (key: T) => TKey,
   valueSelector?: (value: T) => TValue
 ): Collector<T, Map<TKey, TValue>> {

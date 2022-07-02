@@ -14,7 +14,11 @@ export function skipWhile<T>(predicate: Predicate<T>): Operation<T> {
       if (!predicate(e.current, idx++)) {
         // Drain enumerator
         yield e.current;
-        yield* e;
+
+        while (e.moveNext()) {
+          yield e.current;
+        }
+
         break;
       }
     }

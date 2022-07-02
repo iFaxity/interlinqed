@@ -5,7 +5,7 @@ export default defineConfig({
   test: {
     coverage: {
       all: true,
-      reporter: [ 'lcov', 'text' ],
+      reporter: [ 'lcov', 'text', 'text-summary' ],
       exclude: [ '**/*.spec.ts' ],
       include: [ 'src/*' ],
     },

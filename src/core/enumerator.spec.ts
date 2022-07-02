@@ -29,4 +29,18 @@ describe.concurrent('enumerate tests', () => {
     expect(res).toBeTruthy();
     expect(e.current).toBe('foo');
   });
+
+  it('enumerate repetetive', (ctx) => {
+    const e = enumerate([ 'test' ]);
+
+    expect(e.current).toBeUndefined();
+
+    const res = e.moveNext();
+
+    expect(res).toBeTruthy();
+    expect(e.current).toBe('test');
+
+    expect(e.moveNext()).toBeFalsy();
+    expect(e.current).toBeUndefined();
+  });
 });
